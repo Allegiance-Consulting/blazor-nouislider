@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Allegiance.Blazor.NoUiSlider", "src\Allegiance.Blazor.NoUiSlider.csproj", "{D1D250C5-CA4F-447C-8032-3F24D57D372C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allegiance.Blazor.NoUiSlider", "src\Allegiance.Blazor.NoUiSlider.csproj", "{D1D250C5-CA4F-447C-8032-3F24D57D372C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Allegiance.Blazor.NoUiSlider.Client", "samples\Allegiance.Blazor.NoUiSlider.Client.csproj", "{517D7448-2008-47D6-9C5D-62141B902A8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allegiance.Blazor.NoUiSlider.Client", "samples\Allegiance.Blazor.NoUiSlider.Client.csproj", "{517D7448-2008-47D6-9C5D-62141B902A8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D1D250C5-CA4F-447C-8032-3F24D57D372C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,5 +41,11 @@ Global
 		{517D7448-2008-47D6-9C5D-62141B902A8B}.Release|x64.Build.0 = Release|Any CPU
 		{517D7448-2008-47D6-9C5D-62141B902A8B}.Release|x86.ActiveCfg = Release|Any CPU
 		{517D7448-2008-47D6-9C5D-62141B902A8B}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CF61FCEE-9158-4015-A217-A4974A697703}
 	EndGlobalSection
 EndGlobal
