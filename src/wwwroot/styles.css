@@ -2,12 +2,6 @@
     This file is to show how CSS and other static resources (such as images) can be
     used from a library project/package.
 */
-.my-component {
-  border: 2px dashed red;
-  padding: 1em;
-  margin: 1em 0;
-  background-image: url("background.png"); }
-
 .noUi-tooltip {
   top: auto !important;
   left: -40px;
@@ -16,7 +10,7 @@
   border-radius: 30px;
   color: white;
   border-radius: 30px;
-  background-color: #207DCE; }
+  background-color: #207dce; }
 
 .noUi-handle:after, .noUi-handle:before {
   display: none; }
@@ -25,7 +19,7 @@
   height: 8px;
   margin: 55px 0px; }
   .noUi-horizontal .noUi-handle {
-    background: #207DCE;
+    background: #207dce;
     border: none;
     width: 20px;
     height: 20px;
@@ -40,9 +34,9 @@
 .noUi-connect {
   /*min-height: 40px;*/
   /*margin: 55px 0px;*/
-  background: #207DCE; }
+  background: #207dce; }
   .noUi-connect .noUi-tooltip {
-    background-color: #207DCE; }
+    background-color: #207dce; }
 
 .noUi-touch-area:focus {
   outline: none; }
