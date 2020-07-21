@@ -1,0 +1,73 @@
+﻿@inject IJSRuntime JSRuntime
+@using Allegiance.Blazor.NoUiSlider.Models
+@typeparam TValue
+
+<div id="@configuration.Id.ToString()" ></div>
+
+@code {
+    private NoUiSliderConfiguration<TValue> configuration;
+    private TValue startValue { get; set; }
+
+    [Parameter]
+    public EventCallback<TValue> StartValueChanged { get; set; }
+
+    [Parameter]
+    public NoUiSliderConfiguration<TValue> Configuration
+    {
+        get
+        {
+            return configuration;
+        }
+        set
+        {
+            if (configuration != null)
+            {
+                configuration = value;
+                JSRuntime.InvokeVoidAsync("updateSlider", configuration);
+                configuration.SetSlider = false;
+            }
+            else
+            {
+                configuration = value;
+            }
+        }
+    }
+
+    [Parameter]
+    public TValue StartValue {
+        get
+        {
+            return startValue;
+        }
+        set
+        {
+            startValue = value;
+            configuration.Start = value;
+            configuration.SetSlider = true;
+            if (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
+            {
+                configuration.Range.Max = value;
+            }
+            JSRuntime.InvokeVoidAsync("updateSlider", configuration);
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            configuration.Start = startValue;
+            var objectReference = DotNetObjectReference.Create(this);
+            await JSRuntime.InvokeVoidAsync("renderSlider", configuration, objectReference);
+        }
+    }
+
+    [JSInvokable("sliderValueChanged")]
+    public void SliderValueChanged(TValue newValue)
+    {
+        if (StartValueChanged.HasDelegate)
+        {
+            StartValueChanged.InvokeAsync(newValue);
+        }
+    }
+}

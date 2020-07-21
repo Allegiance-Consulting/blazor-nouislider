@@ -1,24 +1,11 @@
 ﻿@page "/"
+<h1>NoUiSlider</h1>
+<Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider.SingleSlider/>
+<br />
+<br />
+<Allegiance.Blazor.NoUiSlider.Components.RangeNoUiSlider.RangeSlider/>
 
-<Allegiance.Blazor.NoUiSlider.Components.NoUiSlider Configuration="Config" @bind-Value="myValue"></Allegiance.Blazor.NoUiSlider.Components.NoUiSlider>
-<p>@myValue</p>
-<button @onclick="Change">Change</button>
 
-@code{
-    private double myValue = 20;
-    public Allegiance.Blazor.NoUiSlider.Models.NoUiSliderConfiguration<double> Config = new Models.NoUiSliderConfiguration<double>
-    {
-        Connect = true,
-        Start = 10,
-        Range = new Models.Range<double>
-        {
-            Max = 100,
-            Min = 0
-        }
-    };
-
-    public void Change()
-    {
-        Config.Range.Max = 300;
-    }
+@code{ 
+   
 }

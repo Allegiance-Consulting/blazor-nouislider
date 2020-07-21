@@ -1,0 +1,95 @@
+﻿@inject IJSRuntime JSRuntime
+@using Allegiance.Blazor.NoUiSlider.Models
+@typeparam TValue
+
+<div id="@configuration.Id.ToString()"></div>
+
+@code {
+    private RangeSliderConfiguration<TValue> configuration;
+    private TValue startValue { get; set; }
+    private TValue endValue { get; set; }
+
+    [Parameter]
+    public EventCallback<TValue> StartValueChanged { get; set; }
+    [Parameter]
+    public EventCallback<TValue> EndValueChanged { get; set; }
+
+    [Parameter]
+    public RangeSliderConfiguration<TValue> Configuration
+    {
+        get
+        {
+            return configuration;
+        }
+        set
+        {
+            if (configuration != null)
+            {
+                configuration = value;
+                JSRuntime.InvokeVoidAsync("updateSlider", configuration);
+                configuration.SetSlider = false;
+            }
+            else
+            {
+                configuration = value;
+            }
+        }
+    }
+
+    [Parameter]
+    public TValue StartValue
+    {
+        get
+        {
+            return startValue;
+        }
+        set
+        {
+            startValue = value;
+            configuration.SetSlider = true;
+            configuration.Start[0] = value;
+            JSRuntime.InvokeVoidAsync("updateSlider", configuration);
+        }
+    }
+
+    [Parameter]
+    public TValue EndValue
+    {
+        get
+        {
+            return endValue;
+        }
+        set
+        {
+            endValue = value;
+            configuration.SetSlider = true;
+            configuration.Start[1] = value;
+            Console.WriteLine($"start: {configuration.Start[1]} - max: {configuration.Range.Max}");
+            if (Convert.ToDouble(configuration.Start[1]) > Convert.ToDouble(configuration.Range.Max))
+            {
+                configuration.Range.Max = configuration.Start[1];
+            }
+            JSRuntime.InvokeVoidAsync("updateSlider", configuration);
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            configuration.Start = new TValue[] {startValue, endValue };
+            var objectReference = DotNetObjectReference.Create(this);
+            await JSRuntime.InvokeVoidAsync("renderSlider", configuration, objectReference);
+        }
+    }
+
+    [JSInvokable("sliderValueChanged")]
+    public void SliderValueChanged(TValue startValue, TValue endValue)
+    {
+        if (StartValueChanged.HasDelegate || EndValueChanged.HasDelegate)
+        {
+            StartValueChanged.InvokeAsync(startValue);
+            EndValueChanged.InvokeAsync(endValue);
+        }
+    }
+}
