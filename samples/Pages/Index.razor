@@ -1,65 +1,11 @@
 ﻿@page "/"
-
-<Allegiance.Blazor.NoUiSlider.Components.NoUiSlider Configuration="Config" @bind-Value="myValue"></Allegiance.Blazor.NoUiSlider.Components.NoUiSlider>
-<input @bind-value="@myValue" @onkeyup="@ChangeSlider" />
+<h1>NoUiSlider</h1>
+<Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider.SingleSlider/>
 <br />
 <br />
-<Allegiance.Blazor.NoUiSlider.Components.NoUiSlider Configuration="Config2" @bind-Value="myValue2"></Allegiance.Blazor.NoUiSlider.Components.NoUiSlider>
-<p>R @myValue2</p>
-<br />
+<Allegiance.Blazor.NoUiSlider.Components.RangeNoUiSlider.RangeSlider/>
 
-@code{ private double myValue = 250;
-            private static double myValue2 = 20;
-            public Models.NoUiSliderConfiguration<double> Config = new Models.NoUiSliderConfiguration<double>
-            {
-                Connect = "lower",
-                Start = 10,
-                Range = new Models.Range<double>
-                {
-                    Min = 0,
-                    Max = 1000
-                },
-                SetSlider = false
-            };
-            public Models.NoUiSliderConfiguration<double> Config2 = new Models.NoUiSliderConfiguration<double>
-            {
-                Connect = "lower",
-                Start = 10,
-                Range = new Models.Range<double>
-                {
-                    Min = 0,
-                    Max = 100
-                }
-            };
-            public void ChangeSlider()
-            {
-                Config.SetSlider = true;
-                Config.Start = myValue;
-                if (myValue > Config.Range.Max)
-                {
-                    Config.Range.Max = myValue;
-                }
-            }
-           
-            //public static double[] StartValues = { 10, 40 };
-            //public static double[] MaxValues = { 100, 200 };
-            //public static double[] MinValues = { 0, 0 };
-            //public Allegiance.Blazor.NoUiSlider.Models.NoUiSliderConfiguration<double[]> Config2 = new Models.NoUiSliderConfiguration<double[]>
-            //{
-            //    Connect = "lower",
-            //    Start = StartValues,
-            //    Range = new Models.Range<double[]>
-            //    {
-            //        Max = MaxValues,
-            //        Min = MinValues
-            //    }
-            //};
 
-            public void Change()
-            {
-                Config.SetSlider = true;
-                Config.Start = 50;
-                myValue = Config.Start;
-                Config.Range.Max = 300;
-                Config2.Range.Max = 300;
-            } }
+@code{ 
+   
+}

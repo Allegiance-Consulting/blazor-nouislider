@@ -2,18 +2,18 @@
 @using Allegiance.Blazor.NoUiSlider.Models
 @typeparam TValue
 
-<h3>NoUiSlider</h3>
-
-<div id="@configuration.Id.ToString()"></div>
+<div id="@configuration.Id.ToString()" ></div>
 
 @code {
     private NoUiSliderConfiguration<TValue> configuration;
+    private TValue startValue { get; set; }
+
     [Parameter]
-    public TValue Value { get; set; }
+    public EventCallback<TValue> StartValueChanged { get; set; }
+
     [Parameter]
-    public EventCallback<TValue> ValueChanged { get; set; }
-    [Parameter]
-    public NoUiSliderConfiguration<TValue> Configuration {
+    public NoUiSliderConfiguration<TValue> Configuration
+    {
         get
         {
             return configuration;
@@ -33,23 +33,41 @@
         }
     }
 
+    [Parameter]
+    public TValue StartValue {
+        get
+        {
+            return startValue;
+        }
+        set
+        {
+            startValue = value;
+            configuration.Start = value;
+            configuration.SetSlider = true;
+            if (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
+            {
+                configuration.Range.Max = value;
+            }
+            JSRuntime.InvokeVoidAsync("updateSlider", configuration);
+        }
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            configuration.Start = Value;
+            configuration.Start = startValue;
             var objectReference = DotNetObjectReference.Create(this);
             await JSRuntime.InvokeVoidAsync("renderSlider", configuration, objectReference);
         }
     }
 
-    [JSInvokable("valueChanged")]
+    [JSInvokable("sliderValueChanged")]
     public void SliderValueChanged(TValue newValue)
     {
-        if (ValueChanged.HasDelegate)
+        if (StartValueChanged.HasDelegate)
         {
-            ValueChanged.InvokeAsync(newValue);
+            StartValueChanged.InvokeAsync(newValue);
         }
-        Console.WriteLine(newValue);
     }
 }

@@ -1,11 +1,17 @@
 ﻿window.sliders = [];
 
 window.renderSlider = function (configuration, dotNetObjectReference) {
+    console.log(configuration);
     let slider = document.getElementById(configuration.id);
     noUiSlider.create(slider, configuration);
     slider.noUiSlider.on("slide", function (val)
     {
-        dotNetObjectReference.invokeMethodAsync("valueChanged", Number(val[0]));
+        if (val.length === 1) {
+            dotNetObjectReference.invokeMethodAsync("sliderValueChanged", Number(val[0]));
+        }
+        else {
+            dotNetObjectReference.invokeMethodAsync("sliderValueChanged", Number(val[0]), Number(val[1]));
+        }
     });
     window.sliders.push({ slider, configuration, dotNetObjectReference });
 }
@@ -21,18 +27,3 @@ window.updateSlider = function (configuration) {
         }
     });
 }
-
-window.mask = (id) => {
-    var customMask = IMask(
-        document.getElementById(id), {
-        mask: "R num",
-        blocks: {
-            num: {
-                mask: Number,
-                thousandsSeparator: ' '
-            }
-        }
-
-    }
-    );
-};
