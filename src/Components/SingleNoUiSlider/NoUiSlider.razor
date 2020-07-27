@@ -1,5 +1,6 @@
 ﻿@inject IJSRuntime JSRuntime
 @using Allegiance.Blazor.NoUiSlider.Models
+@using System.Globalization
 @typeparam TValue
 
 <div id="@configuration.Id.ToString()" ></div>
@@ -32,23 +33,72 @@
             }
         }
     }
-
     [Parameter]
-    public TValue StartValue {
+    public TValue StartValue
+    {
         get
         {
             return startValue;
         }
         set
         {
-            startValue = value;
-            configuration.Start = value;
-            configuration.SetSlider = true;
-            if (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
+            if (Convert.ToDouble(startValue) != Convert.ToDouble(value))
             {
-                configuration.Range.Max = value;
+                startValue = value;
+                configuration.Start = value;
+                configuration.SetSlider = true;
+
+                //Temp variables for setting step to 20%
+                var MaxVal = Convert.ToDouble(configuration.Range.Max);
+                var OldRangeVal = (int)Convert.ChangeType(configuration.Range.Max, typeof(int));
+
+                //Increase the max range when the slider hits the end of the slider base
+                if (Convert.ToDouble(configuration.Start) == Convert.ToDouble(configuration.Range.Max))
+                {
+                    if (typeof(TValue) == typeof(double))
+                    {
+                        var Max = Convert.ToDouble(configuration.Range.Max);
+                        var Sum = Max * 10;
+                        configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                    }
+                }
+                if (Convert.ToDouble(configuration.Start) > Convert.ToDouble(configuration.Range.Max))
+                {
+                    if (typeof(TValue) == typeof(double))
+                    {
+                        while (Convert.ToDouble(configuration.Start) > Convert.ToDouble(configuration.Range.Max))
+                        {
+                            var Max = Convert.ToDouble(configuration.Range.Max);
+                            var Sum = Max * 10;
+                            configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                        }
+                    }
+                }
+                //Decrease max range when slider hits 0
+                if (Convert.ToDouble(value) == 0 && Convert.ToDouble(configuration.Range.Max) > 100)
+                {
+                    var MaxTemp = Convert.ToDouble(configuration.Range.Max);
+                    var RangeTemp = MaxTemp / 10;
+                    var StartTemp = 30;
+                    configuration.Range.Max = (TValue)Convert.ChangeType(RangeTemp, typeof(TValue));
+                    configuration.Start = (TValue)Convert.ChangeType(StartTemp, typeof(TValue));
+                }
+
+                if (configuration.PercentageStep != null)
+                {
+                    var Percentage = MaxVal / 100 * Convert.ToDouble(configuration.PercentageStep);
+                    configuration.Step = (TValue)Convert.ChangeType(Percentage, typeof(TValue));
+                    //Setting the step to a percentage of max value
+                    if (OldRangeVal != (Convert.ToDouble(configuration.Range.Max)))
+                    {
+                        MaxVal = Convert.ToDouble(configuration.Range.Max);
+                        Percentage = MaxVal / 100 * Convert.ToDouble(configuration.PercentageStep);
+                        configuration.Step = (TValue)Convert.ChangeType(Percentage, typeof(TValue));
+                        OldRangeVal = (int)Convert.ChangeType(configuration.Range.Max, typeof(int));
+                    }
+                }
+                JSRuntime.InvokeVoidAsync("updateSlider", configuration);
             }
-            JSRuntime.InvokeVoidAsync("updateSlider", configuration);
         }
     }
 

@@ -3,11 +3,14 @@
 @typeparam TValue
 
 <div id="@configuration.Id.ToString()"></div>
+<div>Value between start and end handle: @startEnd</div>
+<br />
 
 @code {
     private RangeSliderConfiguration<TValue> configuration;
     private TValue startValue { get; set; }
     private TValue endValue { get; set; }
+    private TValue startEnd { get; set; }
 
     [Parameter]
     public EventCallback<TValue> StartValueChanged { get; set; }
@@ -48,6 +51,9 @@
             startValue = value;
             configuration.SetSlider = true;
             configuration.Start[0] = value;
+            startEnd = value;
+            var Total = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
+            startEnd = (TValue)Convert.ChangeType(Total, typeof(TValue));
             JSRuntime.InvokeVoidAsync("updateSlider", configuration);
         }
     }
@@ -65,13 +71,51 @@
             configuration.SetSlider = true;
             configuration.Start[1] = value;
             Console.WriteLine($"start: {configuration.Start[1]} - max: {configuration.Range.Max}");
+            if (Convert.ToDouble(configuration.Start[1]) == Convert.ToDouble(configuration.Range.Max))
+            {
+                if (typeof(TValue) == typeof(double))
+                {
+                    var Max = Convert.ToDouble(configuration.Range.Max);
+                    var Sum = Max * 10;
+                    configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                }
+            }
             if (Convert.ToDouble(configuration.Start[1]) > Convert.ToDouble(configuration.Range.Max))
             {
-                configuration.Range.Max = configuration.Start[1];
+                if (typeof(TValue) == typeof(double))
+                {
+                    while (Convert.ToDouble(configuration.Start[1]) > Convert.ToDouble(configuration.Range.Max))
+                    {
+                        var Max = Convert.ToDouble(configuration.Range.Max);
+                        var Sum = Max * 10;
+                        configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                    }
+                }
             }
+            //if (Convert.ToDouble(configuration.Start[1]) > Convert.ToDouble(configuration.Range.Max))
+            //{
+            //    configuration.Range.Max = configuration.Start[1];
+            //}
+            startEnd = value;
+            var Total = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
+            startEnd = (TValue)Convert.ChangeType(Total, typeof(TValue));
             JSRuntime.InvokeVoidAsync("updateSlider", configuration);
         }
     }
+
+    //public TValue StartEnd
+    //{
+    //    get
+    //    {
+    //        return startEnd;
+    //    }
+    //    set
+    //    {
+    //        startEnd = value;
+    //        var Total = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
+    //        startEnd = (TValue)Convert.ChangeType(Total, typeof(TValue));
+    //    }
+    //}
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

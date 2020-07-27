@@ -1,8 +1,4 @@
-﻿/*
-    This file is to show how CSS and other static resources (such as images) can be
-    used from a library project/package.
-*/
-
+﻿
 .noUi-tooltip {
     top: auto !important;
     left: -40px;
@@ -39,9 +35,7 @@
 }
 
 .noUi-connect {
-    /*min-height: 40px;*/
-    /*margin: 55px 0px;*/
-    .noUi-tooltip 
+       .noUi-tooltip 
     {
         background-color: #207dce;
     }
@@ -50,4 +44,16 @@
 
 .noUi-touch-area:focus{
     outline: none;
+}
+
+#assets-liabilities-container #slider-expenses {
+    background: #EA6868;
+}
+
+#assets-liabilities-container #slider-expenses .noUi-tooltip {
+    background-color: #EA6868;
+}
+
+#assets-liabilities-container #slider-expenses .noUi-handle {
+    background: #EA6868;
 }
