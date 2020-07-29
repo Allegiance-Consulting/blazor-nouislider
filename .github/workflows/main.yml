@@ -1,4 +1,4 @@
-name: NuGet Package Deploy
+name: NuGet Package Deploy Task
 
 on:
   push:
