@@ -22,6 +22,7 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public int? PercentageStep { get; set; }
         public string Behaviour { get; set; } = "snap";
         public string Event { get; set; } = "end";
+        public bool Growth { get; set; } = false;
     }
     public class Range<T>
     {

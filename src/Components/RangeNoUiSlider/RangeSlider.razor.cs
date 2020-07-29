@@ -16,6 +16,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.RangeNoUiSlider
                 Min = 0,
                 Max = 100
             },
+            Growth = true
         };
 
         public void Change()
