@@ -17,13 +17,13 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
                 Max = 100
             },
             //To have the step linked to a percentage of max value
-            PercentageStep = 15,
+            PercentageStep = 10,
             TooltipsFormat = new Models.TooltipsFormat
             {
                 Prefix = "",
                 Suffix = "%",
                 Decimals = 0
-            }
+            },
         };
 
         public NoUiSliderConfiguration<double> Config2 = new NoUiSliderConfiguration<double>
@@ -33,6 +33,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
                 Min = 0,
                 Max = 100
             },
+            Growth = true
         };
 
         public void Change()

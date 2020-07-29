@@ -58,6 +58,7 @@
             configuration.SetSlider = true;
             configuration.Start[0] = value;
             startEnd = value;
+
             var Total = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
             startEnd = (TValue)Convert.ChangeType(Total, typeof(TValue));
             var StartFirst = Convert.ToDouble(startValue) - Convert.ToDouble(configuration.Range.Min);
@@ -78,25 +79,43 @@
             endValue = value;
             configuration.SetSlider = true;
             configuration.Start[1] = value;
-            if (Convert.ToDouble(configuration.Start[1]) == Convert.ToDouble(configuration.Range.Max))
+
+            var OldRangeMax = Convert.ToDouble(configuration.Range.Max);
+
+            if (configuration.Growth)
             {
-                if (typeof(TValue) == typeof(double))
+                if (Convert.ToDouble(configuration.Start[1]) == Convert.ToDouble(configuration.Range.Max))
                 {
-                    var Max = Convert.ToDouble(configuration.Range.Max);
-                    var Sum = Max * 10;
-                    configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
-                }
-            }
-            if (Convert.ToDouble(configuration.Start[1]) > Convert.ToDouble(configuration.Range.Max))
-            {
-                if (typeof(TValue) == typeof(double))
-                {
-                    while (Convert.ToDouble(configuration.Start[1]) > Convert.ToDouble(configuration.Range.Max))
+                    if (typeof(TValue) == typeof(double))
                     {
                         var Max = Convert.ToDouble(configuration.Range.Max);
                         var Sum = Max * 10;
                         configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
                     }
+                }
+                if (Convert.ToDouble(configuration.Start[1]) > Convert.ToDouble(configuration.Range.Max))
+                {
+                    if (typeof(TValue) == typeof(double))
+                    {
+                        while (Convert.ToDouble(configuration.Start[1]) > Convert.ToDouble(configuration.Range.Max))
+                        {
+                            var Max = Convert.ToDouble(configuration.Range.Max);
+                            var Sum = Max * 10;
+                            configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                        }
+                    }
+                }
+            }
+            if (configuration.PercentageStep != null)
+            {
+                var Percentage = Convert.ToDouble(configuration.Range.Max) / 100 * Convert.ToDouble(configuration.PercentageStep);
+                configuration.Step = (TValue)Convert.ChangeType(Percentage, typeof(TValue));
+                //Setting the step to a percentage of max value
+                if (OldRangeMax != Convert.ToDouble(configuration.Range.Max))
+                {
+                    Percentage = Convert.ToDouble(configuration.Range.Max) / 100 * Convert.ToDouble(configuration.PercentageStep);
+                    configuration.Step = (TValue)Convert.ChangeType(Percentage, typeof(TValue));
+                    OldRangeMax = (int)Convert.ChangeType(configuration.Range.Max, typeof(int));
                 }
             }
             startEnd = value;
