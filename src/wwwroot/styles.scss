@@ -50,17 +50,14 @@
     background: #999;
 }
 
-#secondry {
+.secondary.noUi-horizontal{
 
     .noUi-tooltip {
         background-color: #EA6868;
     }
-
-    .noUi-horizontal {
-
-        .noUi-handle {
-            background-color: #EA6868;
-        }
+    
+    .noUi-handle {
+        background-color: #EA6868 ;
     }
 
     .noUi-connect {
@@ -72,17 +69,14 @@
     }
 }
 
-#tertiary {
+.tertiary.noUi-horizontal {
 
     .noUi-tooltip {
         background-color: #00C08C;
     }
 
-    .noUi-horizontal {
-
-        .noUi-handle {
-            background-color: #00C08C;
-        }
+    .noUi-handle {
+        background-color: #00C08C;
     }
 
     .noUi-connect {
