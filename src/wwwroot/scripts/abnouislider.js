@@ -29,7 +29,6 @@ window.updateSlider = function (configuration) {
             }
             value.slider.noUiSlider.updateOptions(configuration);
             value.configuration = configuration; configuration.eventconfiguration.event
-            inputFormat.format = wNumb(configuration.tooltipsFormat);
         }
     });
 }

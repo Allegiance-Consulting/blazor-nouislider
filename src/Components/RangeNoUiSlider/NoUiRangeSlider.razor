@@ -4,7 +4,7 @@
 
 <div>
     <div>Value from start to first handle: @startFirst</div>
-    <div id="@configuration.Id.ToString()"></div>
+    <div id="@configuration.Id.ToString()" class="@Class"></div>
     <div>Value between start and end handle: @startEnd</div>
 </div>
 <br />
@@ -20,6 +20,8 @@
     public EventCallback<TValue> StartValueChanged { get; set; }
     [Parameter]
     public EventCallback<TValue> EndValueChanged { get; set; }
+    [Parameter]
+    public string Class { get; set; }
 
     [Parameter]
     public RangeSliderConfiguration<TValue> Configuration

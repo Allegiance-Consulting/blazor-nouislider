@@ -10,6 +10,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
 
         public NoUiSliderConfiguration<double> Config = new NoUiSliderConfiguration<double>
         {
+            Start = 20,
             Range = new Range<double>
             {
                 Min = 0,
@@ -33,10 +34,11 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
                 Max = 100
             },
         };
+
         public void Change()
         {
             // Change slider with Config.Start
-            Config.Start = 50;
+            myValue = Config.Start = 50;
             // Change slider with bound value
             myValue2 = 100;
             Config.Range.Max = 300;

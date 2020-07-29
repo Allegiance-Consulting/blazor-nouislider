@@ -38,24 +38,24 @@
 .noUi-connects {
   background: #999; }
 
-#secondry .noUi-tooltip {
+.secondary.noUi-horizontal .noUi-tooltip {
   background-color: #EA6868; }
 
-#secondry .noUi-horizontal .noUi-handle {
+.secondary.noUi-horizontal .noUi-handle {
   background-color: #EA6868; }
 
-#secondry .noUi-connect {
+.secondary.noUi-horizontal .noUi-connect {
   background-color: #EA6868; }
-  #secondry .noUi-connect .noUi-tooltip {
+  .secondary.noUi-horizontal .noUi-connect .noUi-tooltip {
     background-color: #EA6868; }
 
-#tertiary .noUi-tooltip {
+.tertiary.noUi-horizontal .noUi-tooltip {
   background-color: #00C08C; }
 
-#tertiary .noUi-horizontal .noUi-handle {
+.tertiary.noUi-horizontal .noUi-handle {
   background-color: #00C08C; }
 
-#tertiary .noUi-connect {
+.tertiary.noUi-horizontal .noUi-connect {
   background-color: #00C08C; }
-  #tertiary .noUi-connect .noUi-tooltip {
+  .tertiary.noUi-horizontal .noUi-connect .noUi-tooltip {
     background-color: #00C08C; }
