@@ -3,9 +3,11 @@
 <br />
 <input @bind-value="myValue" />
 <br />
-<Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider.NoUiSlider Configuration="Config2" @bind-StartValue="myValue2" />
+<div id="secondry">
+    <Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider.NoUiSlider Configuration="Config2" @bind-StartValue="myValue2" />
+</div>
 <br />
-<input @bind-value="myValue2" id="inputformat"/>
+<input @bind-value="myValue2"/>
 <br />
 <button @onclick="Change">Change</button>
 

@@ -2,8 +2,11 @@
 @using Allegiance.Blazor.NoUiSlider.Models
 @typeparam TValue
 
-<div id="@configuration.Id.ToString()"></div>
-<div>Value between start and end handle: @startEnd</div>
+<div>
+    <div>Value from start to first handle: @startFirst</div>
+    <div id="@configuration.Id.ToString()"></div>
+    <div>Value between start and end handle: @startEnd</div>
+</div>
 <br />
 
 @code {
@@ -11,6 +14,7 @@
     private TValue startValue { get; set; }
     private TValue endValue { get; set; }
     private TValue startEnd { get; set; }
+    private TValue startFirst { get; set; }
 
     [Parameter]
     public EventCallback<TValue> StartValueChanged { get; set; }
@@ -54,6 +58,8 @@
             startEnd = value;
             var Total = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
             startEnd = (TValue)Convert.ChangeType(Total, typeof(TValue));
+            var StartFirst = Convert.ToDouble(startValue) - Convert.ToDouble(configuration.Range.Min);
+            startFirst = (TValue)Convert.ChangeType(StartFirst, typeof(TValue));
             JSRuntime.InvokeVoidAsync("updateSlider", configuration);
         }
     }
@@ -70,7 +76,6 @@
             endValue = value;
             configuration.SetSlider = true;
             configuration.Start[1] = value;
-            Console.WriteLine($"start: {configuration.Start[1]} - max: {configuration.Range.Max}");
             if (Convert.ToDouble(configuration.Start[1]) == Convert.ToDouble(configuration.Range.Max))
             {
                 if (typeof(TValue) == typeof(double))
@@ -92,30 +97,12 @@
                     }
                 }
             }
-            //if (Convert.ToDouble(configuration.Start[1]) > Convert.ToDouble(configuration.Range.Max))
-            //{
-            //    configuration.Range.Max = configuration.Start[1];
-            //}
             startEnd = value;
             var Total = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
             startEnd = (TValue)Convert.ChangeType(Total, typeof(TValue));
             JSRuntime.InvokeVoidAsync("updateSlider", configuration);
         }
     }
-
-    //public TValue StartEnd
-    //{
-    //    get
-    //    {
-    //        return startEnd;
-    //    }
-    //    set
-    //    {
-    //        startEnd = value;
-    //        var Total = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
-    //        startEnd = (TValue)Convert.ChangeType(Total, typeof(TValue));
-    //    }
-    //}
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

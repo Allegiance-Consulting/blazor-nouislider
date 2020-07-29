@@ -15,7 +15,7 @@
 }
 
 .noUi-horizontal {
-    height: 8px;
+    height: 5px;
     margin: 55px 0px;
 
     .noUi-handle {
@@ -25,7 +25,7 @@
         height: 20px;
         box-shadow: none;
         border-radius: 30px;
-        top: -7px;
+        top: -9px;
         cursor: pointer;
         z-index: 10;
         &:focus {
@@ -46,14 +46,51 @@
     outline: none;
 }
 
-#assets-liabilities-container #slider-expenses {
-    background: #EA6868;
+.noUi-connects {
+    background: #999;
 }
 
-#assets-liabilities-container #slider-expenses .noUi-tooltip {
-    background-color: #EA6868;
+#secondry {
+
+    .noUi-tooltip {
+        background-color: #EA6868;
+    }
+
+    .noUi-horizontal {
+
+        .noUi-handle {
+            background-color: #EA6868;
+        }
+    }
+
+    .noUi-connect {
+        .noUi-tooltip {
+            background-color: #EA6868;
+        }
+
+        background-color: #EA6868;
+    }
 }
 
-#assets-liabilities-container #slider-expenses .noUi-handle {
-    background: #EA6868;
+#tertiary {
+
+    .noUi-tooltip {
+        background-color: #00C08C;
+    }
+
+    .noUi-horizontal {
+
+        .noUi-handle {
+            background-color: #00C08C;
+        }
+    }
+
+    .noUi-connect {
+        .noUi-tooltip {
+            background-color: #00C08C;
+        }
+
+        background-color: #00C08C;
+    }
 }
+
