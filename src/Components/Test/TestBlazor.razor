@@ -1,0 +1,22 @@
+﻿<h3>TestBlazor</h3>
+
+@code {
+    private double test { get; set; }
+
+    [Parameter]
+    public EventCallback<double> TestChanged { get; set; }
+
+    [Parameter]
+    public double Test
+    {
+        get
+        {
+            return test;
+        }
+        set
+        {
+            Console.WriteLine("========");
+            test = value;
+        }
+    }
+} 
