@@ -14,7 +14,6 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public TooltipsFormat TooltipsFormat { get; set; } = new TooltipsFormat();
         public T Step { get; set; }
         public int? PercentageStep { get; set; }
-        public Pips Pips { get; set; } = new Pips();
         public bool SetSlider { get; set; } = false;
         public string Behaviour { get; set; } = "snap";
         public string Event { get; set; } = "end";
