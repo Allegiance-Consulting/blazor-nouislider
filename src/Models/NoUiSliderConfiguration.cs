@@ -15,6 +15,7 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public Guid Id { get; set; } = Guid.NewGuid();
         public bool Tooltips { get; set; } = true;
         public TooltipsFormat TooltipsFormat { get; set; } = new TooltipsFormat();
+        public Pips Pips { get; set; } = new Pips();
         public bool SetSlider { get; set; } = false;
         public T Step { get; set; }
         //If percentage step is sent in, the slider step jumps with a percentage of max value
@@ -35,5 +36,12 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public string Suffix { get; set; } = "";
         public string Thousand { get; set; } = " ";
         public int Decimals { get; set; } = 2;
+    }
+
+    public class Pips
+    {
+        public string Mode { get; set; } = "positions";
+        public int Density { get; set; } = 100;
+        public int[] Values { get; set; } = { 0, 100 };
     }
 }
