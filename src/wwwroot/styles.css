@@ -38,6 +38,9 @@
 .noUi-connects {
   background: #999; }
 
+.secondary.noUi-horizontal .noUi-base {
+  background-color: #EA6868; }
+
 .secondary.noUi-horizontal .noUi-tooltip {
   background-color: #EA6868; }
 

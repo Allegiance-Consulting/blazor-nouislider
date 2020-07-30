@@ -50,14 +50,18 @@
     background: #999;
 }
 
-.secondary.noUi-horizontal{
+.secondary.noUi-horizontal {
+
+    .noUi-base {
+        background-color: #EA6868
+    }
 
     .noUi-tooltip {
         background-color: #EA6868;
     }
-    
+
     .noUi-handle {
-        background-color: #EA6868 ;
+        background-color: #EA6868;
     }
 
     .noUi-connect {
