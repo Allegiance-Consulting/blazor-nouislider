@@ -18,7 +18,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             },
             //To have the step linked to a percentage of max value
             PercentageStep = 10,
-            TooltipsFormat = new Models.TooltipsFormat
+            TooltipsFormat = new TooltipsFormat
             {
                 Prefix = "",
                 Suffix = "%",
