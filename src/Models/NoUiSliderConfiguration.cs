@@ -22,6 +22,7 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public string Behaviour { get; set; } = "snap";
         public string Event { get; set; } = "end";
         public bool Growth { get; set; } = false;
+        public string InputFormat { get; set; }
     }
     public class Range<T>
     {
@@ -31,7 +32,7 @@ namespace Allegiance.Blazor.NoUiSlider.Models
     
     public class TooltipsFormat
     {
-        public string Prefix { get; set; } = "R ";
+        public string Prefix { get; set; } = "";
         public string Suffix { get; set; } = "";
         public string Thousand { get; set; } = " ";
         public int Decimals { get; set; } = 2;

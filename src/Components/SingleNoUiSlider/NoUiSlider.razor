@@ -1,5 +1,6 @@
 ﻿@inject IJSRuntime JSRuntime
 @using Allegiance.Blazor.NoUiSlider.Models
+@using System.Globalization 
 @typeparam TValue
 
 <div id="@configuration.Id.ToString()" class="@Class"></div>
@@ -99,6 +100,26 @@
                         configuration.Step = (TValue)Convert.ChangeType(Percentage, typeof(TValue));
                         OldRangeMax = (int)Convert.ChangeType(configuration.Range.Max, typeof(int));
                     }
+                }
+                //InputFormat will change the number type of your tooltip
+                if (configuration.InputFormat == "currency")
+                {
+                    configuration.TooltipsFormat = new TooltipsFormat
+                    {
+                        Prefix = Convert.ToString(CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol),
+                        Thousand = " ",
+                        Decimals = 2,
+                        Suffix = ""
+                    };
+                }
+                else if (configuration.InputFormat == "percentage")
+                {
+                    configuration.TooltipsFormat = new TooltipsFormat
+                    {
+                        Prefix = "",
+                        Suffix = "%",
+                        Decimals = 0
+                    };
                 }
                 JSRuntime.InvokeVoidAsync("updateSlider", configuration);
             }
