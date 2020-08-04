@@ -1,5 +1,6 @@
 ﻿using Allegiance.Blazor.NoUiSlider.Models;
-
+using System;
+using System.Globalization;
 
 namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
 {
@@ -19,7 +20,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             //To have the step linked to a percentage of max value
             PercentageStep = 10,
             InputFormat = "currency",
-            Growth = true
+            Growth = true,
         };
 
         public NoUiSliderConfiguration<double> Config2 = new NoUiSliderConfiguration<double>

@@ -101,26 +101,6 @@
                         OldRangeMax = (int)Convert.ChangeType(configuration.Range.Max, typeof(int));
                     }
                 }
-                //InputFormat will change the number type of your tooltip
-                if (configuration.InputFormat == "currency")
-                {
-                    configuration.TooltipsFormat = new TooltipsFormat
-                    {
-                        Prefix = Convert.ToString(CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol),
-                        Thousand = " ",
-                        Decimals = 0,
-                        Suffix = ""
-                    };
-                }
-                else if (configuration.InputFormat == "percentage")
-                {
-                    configuration.TooltipsFormat = new TooltipsFormat
-                    {
-                        Prefix = "",
-                        Suffix = "%",
-                        Decimals = 0
-                    };
-                }
                 JSRuntime.InvokeVoidAsync("updateSlider", configuration);
             }
         }
@@ -132,6 +112,26 @@
         {
             configuration.Start = startValue;
             var objectReference = DotNetObjectReference.Create(this);
+            //InputFormat will change the number type of your tooltip
+            if (configuration.InputFormat == "currency")
+            {
+                configuration.TooltipsFormat = new TooltipsFormat
+                {
+                    Prefix = Convert.ToString(CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol),
+                    Thousand = " ",
+                    Decimals = 0,
+                    Suffix = ""
+                };
+            }
+            else if (configuration.InputFormat == "percentage")
+            {
+                configuration.TooltipsFormat = new TooltipsFormat
+                {
+                    Prefix = "",
+                    Suffix = "%",
+                    Decimals = 0
+                };
+            }
             await JSRuntime.InvokeVoidAsync("renderSlider", configuration, objectReference);
         }
     }
