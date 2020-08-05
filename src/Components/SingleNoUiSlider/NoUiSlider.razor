@@ -71,6 +71,7 @@
                     {
                         if (typeof(TValue) == typeof(double))
                         {
+                            configuration.Start = value;
                             while (Convert.ToDouble(configuration.Start) > Convert.ToDouble(configuration.Range.Max))
                             {
                                 var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
