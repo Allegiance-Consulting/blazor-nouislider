@@ -59,7 +59,7 @@
                 if (configuration.Growth)
                 {
                     //Increase the max range when the slider hits the end of the slider base
-                    if (Convert.ToDouble(configuration.Start) == Convert.ToDouble(configuration.Range.Max))
+                    if (Convert.ToDouble(startValue) == Convert.ToDouble(configuration.Range.Max))
                     {
                         if (typeof(TValue) == typeof(double))
                         {
@@ -71,8 +71,8 @@
                     {
                         if (typeof(TValue) == typeof(double))
                         {
-                            configuration.Start = value;
-                            while (Convert.ToDouble(configuration.Start) > Convert.ToDouble(configuration.Range.Max))
+                            startValue = value;
+                            while (Convert.ToDouble(startValue) > Convert.ToDouble(configuration.Range.Max))
                             {
                                 var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
                                 configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
@@ -80,13 +80,21 @@
                         }
                     }
                     //Decrease max range when slider hits range minimum
-                    if (Convert.ToDouble(configuration.Start) == 0 && Convert.ToDouble(configuration.Range.Max) > 100)
+                    if (Convert.ToDouble(StartValue) == 0 && Convert.ToDouble(configuration.Range.Max) > 100)
                     {
                         var RangeTemp = Convert.ToDouble(configuration.Range.Max) / 10;
                         configuration.Range.Max = (TValue)Convert.ChangeType(RangeTemp, typeof(TValue));
                         var StartTemp = Convert.ToDouble(configuration.Range.Max) * 0.4;
+                        startValue = (TValue)Convert.ChangeType(StartTemp, typeof(TValue));
+                        StartValueChanged.InvokeAsync(startValue);
                         configuration.Start = (TValue)Convert.ChangeType(StartTemp, typeof(TValue));
-
+                    }
+                    if (Convert.ToDouble(value) < Convert.ToDouble(startValue))
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            startValue = value;
+                        }
                     }
                 }
 

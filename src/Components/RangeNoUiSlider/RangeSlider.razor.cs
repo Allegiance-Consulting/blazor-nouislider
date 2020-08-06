@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Text;
 
 namespace Allegiance.Blazor.NoUiSlider.Components.RangeNoUiSlider
@@ -7,6 +8,8 @@ namespace Allegiance.Blazor.NoUiSlider.Components.RangeNoUiSlider
     public partial class RangeSlider
     {
         private static double[] rangeValue = new double[] { 10, 50 };
+        private static double valBetween { get; set; }
+        private static double startfirst { get; set; }
 
         public Models.RangeSliderConfiguration<double> Configs = new Models.RangeSliderConfiguration<double>
         {
