@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -18,6 +18,7 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public string Behaviour { get; set; } = "snap";
         public string Event { get; set; } = "end";
         public bool Growth { get; set; } = false;
+        public T Margin { get; set; }
     }
     public class Ranges<T>
     {

@@ -35,6 +35,6 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public string Prefix { get; set; } = "";
         public string Suffix { get; set; } = "";
         public string Thousand { get; set; } = " ";
-        public int Decimals { get; set; } = 2;
+        public int Decimals { get; set; } = 0;
     }
 }
