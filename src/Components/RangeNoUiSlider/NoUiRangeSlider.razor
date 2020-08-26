@@ -1,4 +1,4 @@
-﻿@inject IJSRuntime JSRuntime
+@inject IJSRuntime JSRuntime
 @using Allegiance.Blazor.NoUiSlider.Models
 @typeparam TValue
 
@@ -146,6 +146,8 @@
     {
         get
         {
+            var Calc = Convert.ToDouble(configuration.Start[1]) - Convert.ToDouble(configuration.Start[0]);
+            firstSec = (TValue)Convert.ChangeType(Calc, typeof(TValue));
             return firstSec;
         }
         set
