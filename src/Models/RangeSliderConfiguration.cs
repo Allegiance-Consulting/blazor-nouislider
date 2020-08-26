@@ -7,7 +7,7 @@ namespace Allegiance.Blazor.NoUiSlider.Models
     public class RangeSliderConfiguration<T>
     {
         public T[] Start { get; set; }
-        public bool Connect { get; set; } = true;
+        public bool[] Connect { get; set; } = { false, true, false };
         public Ranges<T> Range { get; set; }
         public Guid Id { get; set; } = Guid.NewGuid();
         public bool Tooltips { get; set; } = true;
