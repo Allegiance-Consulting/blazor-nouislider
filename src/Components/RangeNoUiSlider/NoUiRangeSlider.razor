@@ -63,11 +63,6 @@
             configuration.SetSlider = true;
             configuration.Start[0] = value;
 
-            var Total = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
-            firstSec = (TValue)Convert.ChangeType(Total, typeof(TValue));
-            var StartFirst = Convert.ToDouble(startValue) - Convert.ToDouble(configuration.Range.Min);
-            startFirst = (TValue)Convert.ChangeType(StartFirst, typeof(TValue));
-            //StartFirstChanged.InvokeAsync(startFirst);
             JSRuntime.InvokeVoidAsync("updateSlider", configuration);
         }
     }
@@ -123,8 +118,6 @@
                     OldRangeMax = (int)Convert.ChangeType(configuration.Range.Max, typeof(int));
                 }
             }
-            var Total = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
-            firstSec = (TValue)Convert.ChangeType(Total, typeof(TValue));
             JSRuntime.InvokeVoidAsync("updateSlider", configuration);
         }
     }
@@ -134,6 +127,8 @@
     {
         get
         {
+            var StartFirstCalc = Convert.ToDouble(startValue) - Convert.ToDouble(configuration.Range.Min);
+            startFirst = (TValue)Convert.ChangeType(StartFirstCalc, typeof(TValue));
             return startFirst;
         }
         set
@@ -146,8 +141,8 @@
     {
         get
         {
-            var Calc = Convert.ToDouble(configuration.Start[1]) - Convert.ToDouble(configuration.Start[0]);
-            firstSec = (TValue)Convert.ChangeType(Calc, typeof(TValue));
+            var Total = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
+            firstSec = (TValue)Convert.ChangeType(Total, typeof(TValue));
             return firstSec;
         }
         set

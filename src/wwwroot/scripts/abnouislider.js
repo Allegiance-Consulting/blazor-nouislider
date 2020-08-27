@@ -1,9 +1,16 @@
-﻿window.sliders = [];
+window.sliders = [];
 
 window.renderSlider = function (configuration, dotNetObjectReference) {
     configuration.format = wNumb(configuration.tooltipsFormat);
     let slider = document.getElementById(configuration.id);
     noUiSlider.create(slider, configuration);
+    if (configuration.generateConnectClasses) {
+        var connect = slider.querySelectorAll('.noUi-connect');
+
+        for (var i = 0; i < connect.length; i++) {
+            connect[i].classList.add('c-' + i + '-color');
+        }
+    }
     slider.noUiSlider.on(configuration.event, function (val)
     {
         const numberFormatter = wNumb(configuration.tooltipsFormat);
@@ -31,4 +38,9 @@ window.updateSlider = function (configuration) {
             value.configuration = configuration; configuration.eventconfiguration.event
         }
     });
+}
+
+function firstConnectColor(value) {
+    //var connect = slider.querySelectorAll('.noUi-connect');
+    //connect[0].style.background = value;
 }

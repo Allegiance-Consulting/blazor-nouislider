@@ -19,6 +19,7 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public string Event { get; set; } = "end";
         public bool Growth { get; set; } = false;
         public T Margin { get; set; }
+        public bool GenerateConnectClasses { get; set; } = false;
     }
     public class Ranges<T>
     {
