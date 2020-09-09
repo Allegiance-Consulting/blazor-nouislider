@@ -109,6 +109,9 @@
                         case 10000000:
                             configuration.Step = (TValue)Convert.ChangeType(10000, typeof(TValue));
                             break;
+                        case 100000000:
+                            configuration.Step = (TValue)Convert.ChangeType(100000, typeof(TValue));
+                            break;
                         default:
                             configuration.Step = (TValue)Convert.ChangeType(0, typeof(TValue));
                             break;
