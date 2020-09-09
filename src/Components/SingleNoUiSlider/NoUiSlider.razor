@@ -1,6 +1,6 @@
 ﻿@inject IJSRuntime JSRuntime
 @using Allegiance.Blazor.NoUiSlider.Models
-@using System.Globalization 
+@using System.Globalization
 @typeparam TValue
 
 <div id="@configuration.Id.ToString()" class="@Class"></div>
@@ -46,14 +46,14 @@
         }
         set
         {
+            var OldStart = Convert.ToDouble(startValue);
             if (Convert.ToDouble(startValue) != Convert.ToDouble(value))
             {
-                startValue = value;
-                configuration.Start = value;
+                configuration.Start = startValue = value;
                 configuration.SetSlider = true;
 
                 //Temp variables for setting step to percentage of max range
-                var OldRangeMax = (int)Convert.ChangeType(configuration.Range.Max, typeof(int));
+                var OldRangeMax = (double)Convert.ChangeType(configuration.Range.Max, typeof(double));
 
                 //If Growth is true, slider will increase when reaching max value
                 if (configuration.Growth)
@@ -71,16 +71,16 @@
                     {
                         if (typeof(TValue) == typeof(double))
                         {
-                            startValue = value;
-                            while (Convert.ToDouble(startValue) > Convert.ToDouble(configuration.Range.Max))
+                            while (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
                             {
                                 var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
                                 configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
                             }
                         }
                     }
+
                     //Decrease max range when slider hits range minimum
-                    if (Convert.ToDouble(StartValue) == 0 && Convert.ToDouble(configuration.Range.Max) > 100)
+                    if (Convert.ToDouble(startValue) == 0 && Convert.ToDouble(configuration.Range.Max) > 100)
                     {
                         var RangeTemp = Convert.ToDouble(configuration.Range.Max) / 10;
                         configuration.Range.Max = (TValue)Convert.ChangeType(RangeTemp, typeof(TValue));
@@ -89,16 +89,32 @@
                         StartValueChanged.InvokeAsync(startValue);
                         configuration.Start = (TValue)Convert.ChangeType(StartTemp, typeof(TValue));
                     }
-                    if (Convert.ToDouble(value) < Convert.ToDouble(startValue))
+                }
+                if (configuration.EnableStep)
+                {
+                    switch (Convert.ToInt32(configuration.Range.Max))
                     {
-                        if (typeof(TValue) == typeof(double))
-                        {
-                            startValue = value;
-                        }
+                        case 1000:
+                            configuration.Step = (TValue)Convert.ChangeType(10, typeof(TValue));
+                            break;
+                        case 10000:
+                            configuration.Step = (TValue)Convert.ChangeType(100, typeof(TValue));
+                            break;
+                        case 100000:
+                            configuration.Step = (TValue)Convert.ChangeType(100, typeof(TValue));
+                            break;
+                        case 1000000:
+                            configuration.Step = (TValue)Convert.ChangeType(1000, typeof(TValue));
+                            break;
+                        case 10000000:
+                            configuration.Step = (TValue)Convert.ChangeType(10000, typeof(TValue));
+                            break;
+                        default:
+                            configuration.Step = (TValue)Convert.ChangeType(0, typeof(TValue));
+                            break;
                     }
                 }
-
-                if (configuration.PercentageStep != null)
+                if (configuration.PercentageStep > 0)
                 {
                     var Percentage = Convert.ToDouble(configuration.Range.Max) / 100 * Convert.ToDouble(configuration.PercentageStep);
                     configuration.Step = (TValue)Convert.ChangeType(Percentage, typeof(TValue));
@@ -107,14 +123,13 @@
                     {
                         Percentage = Convert.ToDouble(configuration.Range.Max) / 100 * Convert.ToDouble(configuration.PercentageStep);
                         configuration.Step = (TValue)Convert.ChangeType(Percentage, typeof(TValue));
-                        OldRangeMax = (int)Convert.ChangeType(configuration.Range.Max, typeof(int));
+                        OldRangeMax = (double)Convert.ChangeType(configuration.Range.Max, typeof(double));
                     }
                 }
                 JSRuntime.InvokeVoidAsync("updateSlider", configuration);
             }
         }
     }
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

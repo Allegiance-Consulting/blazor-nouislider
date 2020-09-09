@@ -1,4 +1,5 @@
-﻿using System;
+using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Text;
@@ -7,9 +8,13 @@ namespace Allegiance.Blazor.NoUiSlider.Components.RangeNoUiSlider
 {
     public partial class RangeSlider
     {
-        private static double[] rangeValue = new double[] { 10, 50 };
-        private static double valBetween { get; set; }
-        private static double startfirst { get; set; }
+        public double[] rangeValue = new double[] { 10, 50 };
+        private double valBetween;
+        private double minFirst;
+        public string red = "red";
+
+        [Parameter]
+        public EventCallback<double> ValBetweenChanged { get; set; }
 
         public Models.RangeSliderConfiguration<double> Configs = new Models.RangeSliderConfiguration<double>
         {
@@ -19,9 +24,27 @@ namespace Allegiance.Blazor.NoUiSlider.Components.RangeNoUiSlider
                 Min = 0,
                 Max = 100
             },
-            Growth = true
+            GenerateConnectClasses = true,
+            Connect = new bool[] {true, true, true},
+            Growth = true,
         };
 
+        public double ValBetween
+        {
+            get 
+            {
+                return valBetween;
+            }
+            set 
+            {
+                ValBetweenChanged.InvokeAsync(value);
+            }
+        }
+        public double MinFirst
+        {
+            get => minFirst;
+            set => minFirst = value;
+        }
         public void Change()
         {
             Configs.Start = new double[] { 30, 150 };

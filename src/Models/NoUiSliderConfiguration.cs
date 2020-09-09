@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Allegiance.Blazor.NoUiSlider.Models
@@ -16,14 +18,19 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public bool Tooltips { get; set; } = true;
         public TooltipsFormat TooltipsFormat { get; set; } = new TooltipsFormat();
         public bool SetSlider { get; set; } = false;
-        public T Step { get; set; }
+        public T Step { get; set; } = (T)Convert.ChangeType(0, typeof(T));
         //If percentage step is sent in, the slider step jumps with a percentage of max value
-        public int? PercentageStep { get; set; }
+        public double PercentageStep { get; set; } = 0;
+        //Allows slider handle to jump to mouse position on click
         public string Behaviour { get; set; } = "snap";
         public string Event { get; set; } = "end";
         public bool Growth { get; set; } = false;
         public string InputFormat { get; set; }
+        public bool Animate { get; set; } = false;
+        //Enables a default step value
+        public bool EnableStep { get; set; } = false;
     }
+
     public class Range<T>
     {
         public T Min { get; set; }

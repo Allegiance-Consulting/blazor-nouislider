@@ -18,9 +18,12 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
                 Max = 100
             },
             //To have the step linked to a percentage of max value
-            PercentageStep = 10,
+            //PercentageStep = 10,
             InputFormat = "currency",
+            Animate = true,
             Growth = true,
+            EnableStep = true,
+            //Step = 50
         };
 
         public NoUiSliderConfiguration<double> Config2 = new NoUiSliderConfiguration<double>

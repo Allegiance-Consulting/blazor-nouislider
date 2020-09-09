@@ -3,7 +3,7 @@
 @typeparam TValue
 
 <div>
-    @*<div style="text-align: right">@firstSec years</div>*@
+    @*<div style="text-align: right">@FirstSec years</div>*@
     <div id="@configuration.Id.ToString()" class="@Class"></div>
 </div>
 <br />
@@ -12,8 +12,8 @@
     private RangeSliderConfiguration<TValue> configuration;
     private TValue startValue { get; set; }
     private TValue endValue { get; set; }
-    private TValue firstSec { get; set; }
     private TValue startFirst { get; set; }
+    private TValue firstSec { get; set; }
 
     [Parameter]
     public EventCallback<TValue> StartValueChanged { get; set; }
@@ -155,7 +155,7 @@
     {
         if (firstRender)
         {
-            configuration.Start = new TValue[] {startValue, endValue };
+            configuration.Start = new TValue[] { startValue, endValue };
             var objectReference = DotNetObjectReference.Create(this);
             await JSRuntime.InvokeVoidAsync("renderSlider", configuration, objectReference);
         }

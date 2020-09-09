@@ -1,11 +1,11 @@
-﻿
-<Allegiance.Blazor.NoUiSlider.Components.RangeNoUiSlider.NoUiRangeSlider Configuration="Configs" @bind-StartValue="rangeValue[0]" @bind-EndValue="rangeValue[1]" @bind-StartFirst="startfirst" @bind-FirstSec="valBetween" Class="tertiary"/>
+
+<Allegiance.Blazor.NoUiSlider.Components.RangeNoUiSlider.NoUiRangeSlider Configuration="Configs" @bind-StartValue="rangeValue[0]" @bind-EndValue="rangeValue[1]" @bind-StartFirst="MinFirst" @bind-FirstSec="ValBetween" Class="tertiary"/>
 <p>Start of range: <input @bind-value="@rangeValue[0]" /></p>
 <br />
 <p>End of range: <input @bind-value="@rangeValue[1]" /></p>
 <br />
-<p>Value from start to first handle:<input @bind-value="@startfirst"/></p>
+<p>Value from start to first handle:<input @bind-value="@MinFirst"/></p>
 <br />
-<p>Value between handles: @valBetween</p>
+<p>Value between handles: @ValBetween</p>
 <br />
 <button @onclick="Change">Change</button>
