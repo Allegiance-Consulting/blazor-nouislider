@@ -2,12 +2,14 @@
 @using Allegiance.Blazor.NoUiSlider.Models
 @using System.Globalization
 @typeparam TValue
+@implements IDisposable
 
 <div id="@configuration.Id.ToString()" class="@Class"></div>
 
 @code {
     private NoUiSliderConfiguration<TValue> configuration;
     private TValue startValue { get; set; }
+    private DotNetObjectReference<NoUiSlider<TValue>> objectReference;
 
     [Parameter]
     public string Class { get; set; }
@@ -138,7 +140,7 @@
         if (firstRender)
         {
             configuration.Start = startValue;
-            var objectReference = DotNetObjectReference.Create(this);
+            objectReference = DotNetObjectReference.Create(this);
             //InputFormat will change the number type of your tooltip
             if (configuration.InputFormat == "currency")
             {
@@ -169,6 +171,17 @@
         if (StartValueChanged.HasDelegate)
         {
             StartValueChanged.InvokeAsync(newValue);
+        }
+    }
+
+    void IDisposable.Dispose()
+    {
+        GC.SuppressFinalize(this);
+
+        if (objectReference != null)
+        {
+            //Now dispose our object reference so our component can be garbage collected
+            objectReference.Dispose();
         }
     }
 }

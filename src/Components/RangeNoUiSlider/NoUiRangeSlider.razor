@@ -1,6 +1,7 @@
 @inject IJSRuntime JSRuntime
 @using Allegiance.Blazor.NoUiSlider.Models
 @typeparam TValue
+@implements IDisposable
 
 <div>
     @*<div style="text-align: right">@FirstSec years</div>*@
@@ -14,6 +15,7 @@
     private TValue endValue { get; set; }
     private TValue startFirst { get; set; }
     private TValue firstSec { get; set; }
+    private DotNetObjectReference<NoUiRangeSlider<TValue>> objectReference;
 
     [Parameter]
     public EventCallback<TValue> StartValueChanged { get; set; }
@@ -156,7 +158,7 @@
         if (firstRender)
         {
             configuration.Start = new TValue[] { startValue, endValue };
-            var objectReference = DotNetObjectReference.Create(this);
+            objectReference = DotNetObjectReference.Create(this);
             await JSRuntime.InvokeVoidAsync("renderSlider", configuration, objectReference);
         }
     }
@@ -168,6 +170,17 @@
         {
             StartValueChanged.InvokeAsync(newStartValue);
             EndValueChanged.InvokeAsync(newEndValue);
+        }
+    }
+
+    void IDisposable.Dispose()
+    {
+        GC.SuppressFinalize(this);
+
+        if (objectReference != null)
+        {
+            //Now dispose our object reference so our component can be garbage collected
+            objectReference.Dispose();
         }
     }
 }
