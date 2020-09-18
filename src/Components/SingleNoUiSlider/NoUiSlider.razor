@@ -1,4 +1,4 @@
-﻿@inject IJSRuntime JSRuntime
+@inject IJSRuntime JSRuntime
 @using Allegiance.Blazor.NoUiSlider.Models
 @using System.Globalization
 @typeparam TValue
@@ -88,13 +88,16 @@
                         configuration.Range.Max = (TValue)Convert.ChangeType(RangeTemp, typeof(TValue));
                         var StartTemp = Convert.ToDouble(configuration.Range.Max) * 0.4;
                         startValue = (TValue)Convert.ChangeType(StartTemp, typeof(TValue));
-                        StartValueChanged.InvokeAsync(startValue);
+                        if (StartValueChanged.HasDelegate)
+                        {
+                            StartValueChanged.InvokeAsync(startValue);
+                        }
                         configuration.Start = (TValue)Convert.ChangeType(StartTemp, typeof(TValue));
                     }
                 }
                 if (configuration.EnableStep)
                 {
-                    switch (Convert.ToInt32(configuration.Range.Max))
+                    switch (Convert.ToDouble(configuration.Range.Max))
                     {
                         case 1000:
                             configuration.Step = (TValue)Convert.ChangeType(10, typeof(TValue));
