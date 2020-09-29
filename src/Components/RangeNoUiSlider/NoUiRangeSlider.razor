@@ -29,6 +29,8 @@
     public string Class { get; set; }
     [Parameter]
     public string SliderHeader { get; set; }
+    [Parameter]
+    public bool Disabled { get; set; }
 
     [Parameter]
     public RangeSliderConfiguration<TValue> Configuration
@@ -160,6 +162,14 @@
             configuration.Start = new TValue[] { startValue, endValue };
             objectReference = DotNetObjectReference.Create(this);
             await JSRuntime.InvokeVoidAsync("renderSlider", configuration, objectReference);
+        }
+        if (Disabled)
+        {
+            await JSRuntime.InvokeVoidAsync("disableSliderHandle", configuration.Id.ToString());
+        }
+        else if (!Disabled)
+        {
+            await JSRuntime.InvokeVoidAsync("enableSliderHandle", configuration.Id.ToString());
         }
     }
 

@@ -12,6 +12,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.RangeNoUiSlider
         private double valBetween;
         private double minFirst;
         public string red = "red";
+        private bool disabled = false;
 
         [Parameter]
         public EventCallback<double> ValBetweenChanged { get; set; }
@@ -50,6 +51,11 @@ namespace Allegiance.Blazor.NoUiSlider.Components.RangeNoUiSlider
             Configs.Start = new double[] { 30, 150 };
             rangeValue = Configs.Start;
             Configs.Range.Max = 300;
+        }
+
+        public void Disable()
+        {
+            disabled = true;
         }
     }
 }
