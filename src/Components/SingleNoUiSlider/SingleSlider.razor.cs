@@ -14,6 +14,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
         private static double myValue = 20;
         private static double myValue2 = 50;
         private static Guid singleSliderId = Guid.NewGuid();
+        private bool disabled = false;
         [Inject] IJSRuntime JSRuntime{get; set;}
 
         public NoUiSliderConfiguration<double> Config = new NoUiSliderConfiguration<double>
@@ -42,7 +43,6 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
                 Max = 100
             },
             InputFormat = "percentage",
-            Disable = true
         };
 
         public void Change()
@@ -74,14 +74,14 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             }
         }
 
-        public async Task Disable()
+        public void Disable()
         {
-            await JSRuntime.InvokeVoidAsync("disableSliderHandle", singleSliderId.ToString());
+            disabled = true;
         }  
 
-        public async Task Enable()
+        public void Enable()
         {
-            await JSRuntime.InvokeVoidAsync("enableSliderHandle", singleSliderId.ToString());
+            disabled = false;
         }
     }
 }

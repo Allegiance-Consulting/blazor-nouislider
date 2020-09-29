@@ -16,6 +16,7 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public Range<T> Range { get; set; }
         public Guid Id { get; set; } = Guid.NewGuid();
         public bool Tooltips { get; set; } = true;
+        public bool Disabled { get; set; } = false;
         public TooltipsFormat TooltipsFormat { get; set; } = new TooltipsFormat();
         public bool SetSlider { get; set; } = false;
         public T Step { get; set; } = (T)Convert.ChangeType(0, typeof(T));
