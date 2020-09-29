@@ -1,12 +1,16 @@
-﻿
-<Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider.NoUiSlider Configuration="Config" @bind-StartValue="myValue" />
+﻿<Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider.NoUiSlider Configuration="Config" @bind-StartValue="myValue"/>
+
 <br />
-<input @bind-value="myValue" />
+<input @bind-value="myValue" @oninput="ChangeConfig" />
 <br />
 <br />
-<input @bind-value="Config.Step"/>
+<input @bind-value="Config.Step" />
 <br />
-<Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider.NoUiSlider Configuration="Config2" @bind-StartValue="myValue2" Class="secondary"/>
+<br />
+<input type="checkbox" @onclick="@(() => Disable())" /><span>   Select to disable slider handle...</span>
+<input type="checkbox" @onclick="@(() => Enable())" /><span>   Select to enable slider handle...</span>
+<br />
+<Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider.NoUiSlider Configuration="Config2" @bind-StartValue="myValue2" Class="secondary" />
 <br />
 <input @bind-value="myValue2" />
 <br />

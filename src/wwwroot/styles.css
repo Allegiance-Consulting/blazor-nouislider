@@ -32,6 +32,12 @@
   .noUi-connect .noUi-tooltip {
     background-color: #207dce; }
 
+[disabled] .noUi-connect {
+  background: #207dce; }
+
+[disabled] .noUi-touch-area, [disabled] .noUi-tooltip, [disabled].noUi-target {
+  cursor: wait; }
+
 .noUi-touch-area:focus {
   outline: none; }
 
@@ -71,3 +77,10 @@
 
 .tertiary.noUi-horizontal .c-2-color {
   background-color: #EA6868; }
+
+.disable-handle {
+  cursor: wait; }
+  .disable-handle .noUi-touch-area {
+    cursor: wait; }
+  .disable-handle .noUi-tooltip {
+    cursor: wait; }

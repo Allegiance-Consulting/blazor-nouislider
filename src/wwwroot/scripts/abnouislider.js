@@ -10,8 +10,7 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
             connect[i].classList.add('c-' + i + '-color');
         }
     }
-    slider.noUiSlider.on(configuration.event, function (val)
-    {
+    slider.noUiSlider.on(configuration.event, function (val) {
         const numberFormatter = wNumb(configuration.tooltipsFormat);
         if (val.length === 1) {
             dotNetObjectReference.invokeMethodAsync("sliderValueChanged", numberFormatter.from(val[0]));
@@ -21,7 +20,20 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
         }
     });
     window.sliders.push({ slider, configuration, dotNetObjectReference });
+    //var origins = slider.getElementsByClassName("noUi-origin");
+    ////origins.forEach(disableHandle);
+    //for (var i = 0; i < origins.length; i++) {
+    //    console.log("You hit me!");
+    //    if (origins[i].configuration.disable) {
+    //        origins[i].setAttribute("disabled", true);
+    //    }
+    //    else {
+    //        origins[i].removeAttribute("disabled");
+    //    }
+    //}
 }
+
+
 
 window.updateSlider = function (configuration) {
     window.sliders.forEach((value, index) => {
@@ -38,3 +50,22 @@ window.updateSlider = function (configuration) {
         }
     });
 }
+
+window.disableSliderHandle = function (sliderId) {
+    let slider = document.getElementById(sliderId);
+    slider.setAttribute('disabled', true);
+
+}
+
+window.enableSliderHandle = function (sliderId) {
+    let slider = document.getElementById(sliderId);
+    slider.removeAttribute('disabled');
+
+}
+//function disableHandle(element) {
+//    if (configuration.id.configuration.disable) {
+//        element.setAttribute('disabled', true);
+//    } else {
+//        element.removeAttribute('disabled');
+//    }
+//}

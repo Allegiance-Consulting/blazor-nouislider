@@ -1,13 +1,20 @@
 ﻿using Allegiance.Blazor.NoUiSlider.Models;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
+using System.Dynamic;
 using System.Globalization;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
 {
-    public partial class SingleSlider
+    public partial class SingleSlider : ComponentBase
     {
         private static double myValue = 20;
         private static double myValue2 = 50;
+        private static Guid singleSliderId = Guid.NewGuid();
+        [Inject] IJSRuntime JSRuntime{get; set;}
 
         public NoUiSliderConfiguration<double> Config = new NoUiSliderConfiguration<double>
         {
@@ -18,11 +25,12 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
                 Max = 100
             },
             //To have the step linked to a percentage of max value
-            //PercentageStep = 10,
+            PercentageStep = 10,
             InputFormat = "currency",
             Animate = true,
             Growth = true,
-            EnableStep = true,
+            Id = singleSliderId,
+            //EnableStep = true,
             //Step = 50
         };
 
@@ -33,7 +41,8 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
                 Min = 0,
                 Max = 100
             },
-            InputFormat = "percentage"
+            InputFormat = "percentage",
+            Disable = true
         };
 
         public void Change()
@@ -44,6 +53,35 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             myValue2 = 100;
             Config.Range.Max = 300;
             Config2.Range.Max = 300;
+        }
+
+        public void ChangeConfig()
+        {
+            double TempStep = Config.PercentageStep;
+            Config.Range.Max = myValue * 10;
+            //Config.Step = 0;
+            if (TempStep > 0)
+            {
+                Config.PercentageStep = 0;
+                Thread.Sleep(100);
+                Config.PercentageStep = TempStep;
+                //int seconds = 100;
+                //var timer = new Timer(RenewSteps, null, 0, seconds);
+                //void RenewSteps()
+                //{
+                //    Config.PercentageStep = TempStep;
+                //}
+            }
+        }
+
+        public async Task Disable()
+        {
+            await JSRuntime.InvokeVoidAsync("disableSliderHandle", singleSliderId.ToString());
+        }  
+
+        public async Task Enable()
+        {
+            await JSRuntime.InvokeVoidAsync("enableSliderHandle", singleSliderId.ToString());
         }
     }
 }

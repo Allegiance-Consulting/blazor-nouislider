@@ -28,6 +28,7 @@
         top: -9px;
         cursor: pointer;
         z-index: 10;
+
         &:focus {
             outline: none;
         }
@@ -35,14 +36,22 @@
 }
 
 .noUi-connect {
-       .noUi-tooltip 
-    {
+    .noUi-tooltip {
         background-color: #207dce;
     }
+
     background: #207dce;
 }
 
-.noUi-touch-area:focus{
+[disabled] .noUi-connect {
+    background: #207dce;
+}
+
+[disabled] .noUi-touch-area, [disabled] .noUi-tooltip, [disabled].noUi-target {
+    cursor: wait;
+}
+
+.noUi-touch-area:focus {
     outline: none;
 }
 
@@ -103,5 +112,17 @@
 
     .c-2-color {
         background-color: #EA6868;
+    }
+}
+
+.disable-handle {
+    cursor: wait;
+
+    .noUi-touch-area {
+        cursor: wait;
+    }
+
+    .noUi-tooltip {
+        cursor: wait;
     }
 }
