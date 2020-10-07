@@ -84,18 +84,18 @@
                     }
 
                     //Decrease max range when slider hits range minimum
-                    if (Convert.ToDouble(startValue) == 0 && Convert.ToDouble(configuration.Range.Max) > 100)
-                    {
-                        var RangeTemp = Convert.ToDouble(configuration.Range.Max) / 10;
-                        configuration.Range.Max = (TValue)Convert.ChangeType(RangeTemp, typeof(TValue));
-                        var StartTemp = Convert.ToDouble(configuration.Range.Max) * 0.4;
-                        startValue = (TValue)Convert.ChangeType(StartTemp, typeof(TValue));
-                        if (StartValueChanged.HasDelegate)
-                        {
-                            StartValueChanged.InvokeAsync(startValue);
-                        }
-                        configuration.Start = (TValue)Convert.ChangeType(StartTemp, typeof(TValue));
-                    }
+                    //if (Convert.ToDouble(startValue) == 0 && Convert.ToDouble(configuration.Range.Max) > 100)
+                    //{
+                    //    var RangeTemp = Convert.ToDouble(configuration.Range.Max) / 10;
+                    //    configuration.Range.Max = (TValue)Convert.ChangeType(RangeTemp, typeof(TValue));
+                    //    var StartTemp = Convert.ToDouble(configuration.Range.Max) * 0.4;
+                    //    startValue = (TValue)Convert.ChangeType(StartTemp, typeof(TValue));
+                    //    if (StartValueChanged.HasDelegate)
+                    //    {
+                    //        StartValueChanged.InvokeAsync(startValue);
+                    //    }
+                    //    configuration.Start = (TValue)Convert.ChangeType(StartTemp, typeof(TValue));
+                    //}
                 }
                 if (configuration.EnableStep)
                 {
