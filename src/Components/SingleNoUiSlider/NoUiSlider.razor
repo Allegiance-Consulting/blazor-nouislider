@@ -1,4 +1,4 @@
-﻿@inject IJSRuntime JSRuntime
+@inject IJSRuntime JSRuntime
 @using Allegiance.Blazor.NoUiSlider.Models
 @using System.Globalization
 @typeparam TValue
@@ -80,6 +80,23 @@
                                 var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
                                 configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
                             }
+                        }
+                    }
+
+                    //Max limit implementation
+                    if (Convert.ToDouble(configuration.Range.Max) >= 100000000)
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            var maxLimit = 100000000;
+                            configuration.Range.Max = (TValue)Convert.ChangeType(maxLimit, typeof(TValue));
+                        }
+                    }
+                    if (Convert.ToDouble(value) >= 100000000)
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            value = (TValue)Convert.ChangeType(100000000, typeof(TValue));
                         }
                     }
 

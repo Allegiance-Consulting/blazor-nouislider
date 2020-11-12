@@ -20,20 +20,7 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
         }
     });
     window.sliders.push({ slider, configuration, dotNetObjectReference });
-    //var origins = slider.getElementsByClassName("noUi-origin");
-    ////origins.forEach(disableHandle);
-    //for (var i = 0; i < origins.length; i++) {
-    //    console.log("You hit me!");
-    //    if (origins[i].configuration.disable) {
-    //        origins[i].setAttribute("disabled", true);
-    //    }
-    //    else {
-    //        origins[i].removeAttribute("disabled");
-    //    }
-    //}
 }
-
-
 
 window.updateSlider = function (configuration) {
     window.sliders.forEach((value, index) => {
