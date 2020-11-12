@@ -84,21 +84,21 @@
                     }
 
                     //Max limit implementation
-                    if (Convert.ToDouble(configuration.Range.Max) >= 100000000)
-                    {
-                        if (typeof(TValue) == typeof(double))
-                        {
-                            var maxLimit = 100000000;
-                            configuration.Range.Max = (TValue)Convert.ChangeType(maxLimit, typeof(TValue));
-                        }
-                    }
-                    if (Convert.ToDouble(value) >= 100000000)
-                    {
-                        if (typeof(TValue) == typeof(double))
-                        {
-                            value = (TValue)Convert.ChangeType(100000000, typeof(TValue));
-                        }
-                    }
+                    //if (Convert.ToDouble(configuration.Range.Max) >= 100000000)
+                    //{
+                    //    if (typeof(TValue) == typeof(double))
+                    //    {
+                    //        var maxLimit = 100000000;
+                    //        configuration.Range.Max = (TValue)Convert.ChangeType(maxLimit, typeof(TValue));
+                    //    }
+                    //}
+                    //if (Convert.ToDouble(value) >= 100000000)
+                    //{
+                    //    if (typeof(TValue) == typeof(double))
+                    //    {
+                    //        value = (TValue)Convert.ChangeType(100000000, typeof(TValue));
+                    //    }
+                    //}
 
                     //Decrease max range when slider hits range minimum
                     //if (Convert.ToDouble(startValue) == 0 && Convert.ToDouble(configuration.Range.Max) > 100)
