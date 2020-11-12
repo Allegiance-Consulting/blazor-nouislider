@@ -77,7 +77,7 @@
                         {
                             while (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
                             {
-                                var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
+                                var Sum = Convert.ToDouble(configuration.Range.Max) + configuration.IncreaseRange;
                                 configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
                             }
                         }
