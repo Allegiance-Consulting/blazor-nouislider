@@ -30,6 +30,8 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public bool Animate { get; set; } = false;
         //Enables a default step value
         public bool EnableStep { get; set; } = false;
+        //Adds a limit of your choice to the range
+        public double? RangeLimit { get; set; } = null;
     }
 
     public class Range<T>
