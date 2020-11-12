@@ -59,15 +59,15 @@
                 //Temp variables for setting step to percentage of max range
                 var OldRangeMax = (double)Convert.ChangeType(configuration.Range.Max, typeof(double));
 
-                //If Growth is true, slider will increase when reaching max value
-                if (configuration.Growth)
+                //Increase slider range by value when reaching max value
+                if (configuration.IncreaseRange != null)
                 {
                     //Increase the max range when the slider hits the end of the slider base
                     if (Convert.ToDouble(startValue) == Convert.ToDouble(configuration.Range.Max))
                     {
                         if (typeof(TValue) == typeof(double))
                         {
-                            var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
+                            var Sum = Convert.ToDouble(configuration.Range.Max) + configuration.IncreaseRange;
                             configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
                         }
                     }
