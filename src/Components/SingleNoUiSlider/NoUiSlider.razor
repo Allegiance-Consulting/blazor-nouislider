@@ -71,11 +71,11 @@
                             configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
                         }
                     }
-                    if (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
+                    if (Convert.ToDouble(startValue) > Convert.ToDouble(configuration.Range.Max))
                     {
                         if (typeof(TValue) == typeof(double))
                         {
-                            while (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
+                            while (Convert.ToDouble(startValue) > Convert.ToDouble(configuration.Range.Max))
                             {
                                 var Sum = Convert.ToDouble(configuration.Range.Max) + configuration.IncreaseRange;
                                 configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
@@ -83,7 +83,7 @@
                         }
                     }
 
-                    //Max limit implementation
+                    //Range limit implementation
                     if (configuration.RangeLimit != null)
                     {
                         if (Convert.ToDouble(configuration.Range.Max) >= configuration.RangeLimit)
