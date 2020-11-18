@@ -60,7 +60,7 @@
                 var OldRangeMax = (double)Convert.ChangeType(configuration.Range.Max, typeof(double));
 
                 //Increase slider range by value when reaching max value
-                if (configuration.IncreaseRange != null)
+                if (configuration.IncreaseRange > 0)
                 {
                     //Increase the max range when the slider hits the end of the slider base
                     if (Convert.ToDouble(startValue) == Convert.ToDouble(configuration.Range.Max))
@@ -71,11 +71,11 @@
                             configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
                         }
                     }
-                    if (Convert.ToDouble(startValue) > Convert.ToDouble(configuration.Range.Max))
+                    if (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
                     {
                         if (typeof(TValue) == typeof(double))
                         {
-                            while (Convert.ToDouble(startValue) > Convert.ToDouble(configuration.Range.Max))
+                            while (Convert.ToDouble(value) >= Convert.ToDouble(configuration.Range.Max))
                             {
                                 var Sum = Convert.ToDouble(configuration.Range.Max) + configuration.IncreaseRange;
                                 configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
@@ -83,8 +83,10 @@
                         }
                     }
 
+
+
                     //Range limit implementation
-                    if (configuration.RangeLimit != null)
+                    if (configuration.RangeLimit > 0)
                     {
                         if (Convert.ToDouble(configuration.Range.Max) >= configuration.RangeLimit)
                         {
@@ -117,6 +119,31 @@
                     //    configuration.Start = (TValue)Convert.ChangeType(StartTemp, typeof(TValue));
                     //}
                 }
+
+                if (configuration.Growth)
+                {
+                    //Increase the max range when the slider hits the end of the slider base
+                    if (Convert.ToDouble(startValue) == Convert.ToDouble(configuration.Range.Max))
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
+                            configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                        }
+                    }
+                    if (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            while (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
+                            {
+                                var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
+                                configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                            }
+                        }
+                    }
+                }
+
                 if (configuration.EnableStep)
                 {
                     switch (Convert.ToDouble(configuration.Range.Max))
@@ -144,6 +171,7 @@
                             break;
                     }
                 }
+
                 if (configuration.PercentageStep > 0)
                 {
                     var Percentage = Convert.ToDouble(configuration.Range.Max) / 100 * Convert.ToDouble(configuration.PercentageStep);
@@ -156,10 +184,11 @@
                         OldRangeMax = (double)Convert.ChangeType(configuration.Range.Max, typeof(double));
                     }
                 }
-                JSRuntime.InvokeVoidAsync("updateSlider", configuration);
             }
+            JSRuntime.InvokeVoidAsync("updateSlider", configuration);
         }
     }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
