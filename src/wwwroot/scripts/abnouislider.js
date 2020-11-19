@@ -10,6 +10,15 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
             connect[i].classList.add('c-' + i + '-color');
         }
     }
+    slider.noUiSlider.on('start', function () {
+            if (this.options.returnStep > 0) {
+                const opt = this.options;
+                opt.step = opt.returnStep;
+                opt.returnStep = 0;
+                this.updateOptions(opt, true);
+            }
+        //configuration.step = configuration.returnStep;
+    });
     slider.noUiSlider.on(configuration.event, function (val) {
         const numberFormatter = wNumb(configuration.tooltipsFormat);
         if (val.length === 1) {

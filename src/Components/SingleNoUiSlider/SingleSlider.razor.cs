@@ -11,7 +11,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
 {
     public partial class SingleSlider : ComponentBase
     {
-        private static double myValue = 20;
+        private static double myValue = 50;
         private static double myValue2 = 50;
         private static Guid singleSliderId = Guid.NewGuid();
         private bool disabled = false;
@@ -19,7 +19,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
 
         public NoUiSliderConfiguration<double> Config = new NoUiSliderConfiguration<double>
         {
-            Start = 20,
+            Start = 50,
             Range = new Range<double>
             {
                 Min = 0,
@@ -32,7 +32,8 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             IncreaseRange = 50,
             Id = singleSliderId,
             //EnableStep = true,
-            Step = 50
+            Step = 50,
+            //ReturnStep = 10
         };
 
         public NoUiSliderConfiguration<double> Config2 = new NoUiSliderConfiguration<double>

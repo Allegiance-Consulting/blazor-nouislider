@@ -51,6 +51,7 @@
         set
         {
             var OldStart = Convert.ToDouble(startValue);
+            var OldStep = configuration.ReturnStep;
             if (Convert.ToDouble(startValue) != Convert.ToDouble(value))
             {
                 configuration.Start = startValue = value;
@@ -58,6 +59,7 @@
 
                 //Temp variables for setting step to percentage of max range
                 var OldRangeMax = (double)Convert.ChangeType(configuration.Range.Max, typeof(double));
+
 
                 if (configuration.Growth)
                 {
@@ -168,6 +170,7 @@
                             configuration.Step = (TValue)Convert.ChangeType(0, typeof(TValue));
                             break;
                     }
+                    configuration.ReturnStep = Convert.ToDouble(configuration.Step);
                 }
 
                 if (configuration.PercentageStep > 0)
@@ -182,6 +185,18 @@
                         OldRangeMax = (double)Convert.ChangeType(configuration.Range.Max, typeof(double));
                     }
                 }
+
+                if (Convert.ToDouble(startValue) % Convert.ToDouble(configuration.Step) != 0)
+                {
+                    configuration.ReturnStep = Convert.ToDouble(configuration.Step);
+                    Console.WriteLine($" I am going in {configuration.ReturnStep}");
+                    configuration.Step = (TValue)Convert.ChangeType(1, typeof(TValue));
+                    //configuration.Step = startValue;
+                }
+                //if (configuration.ReturnStep > 0)
+                //{
+                //    configuration.Step = (TValue)Convert.ChangeType(1, typeof(TValue));
+                //}
             }
             JSRuntime.InvokeVoidAsync("updateSlider", configuration);
         }
@@ -231,6 +246,13 @@
     {
         if (StartValueChanged.HasDelegate)
         {
+            //if (configuration.ReturnStep > 0)
+            //{
+            //    Console.WriteLine(configuration.ReturnStep);
+            //    configuration.Step = (TValue)Convert.ChangeType(configuration.ReturnStep, typeof(TValue));
+            //    configuration.ReturnStep = 0;
+            //    JSRuntime.InvokeVoidAsync("updateSlider", configuration);
+            //}
             StartValueChanged.InvokeAsync(newValue);
         }
     }

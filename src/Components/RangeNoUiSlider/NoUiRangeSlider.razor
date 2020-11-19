@@ -10,26 +10,19 @@
 
 @code {
     private RangeSliderConfiguration<TValue> configuration;
+    private DotNetObjectReference<NoUiRangeSlider<TValue>> objectReference;
     private TValue startValue { get; set; }
     private TValue endValue { get; set; }
     private TValue startFirst { get; set; }
     private TValue firstSec { get; set; }
-    private DotNetObjectReference<NoUiRangeSlider<TValue>> objectReference;
 
-    [Parameter]
-    public EventCallback<TValue> StartValueChanged { get; set; }
-    [Parameter]
-    public EventCallback<TValue> EndValueChanged { get; set; }
-    [Parameter]
-    public EventCallback<TValue> StartFirstChanged { get; set; }
-    [Parameter]
-    public EventCallback<TValue> FirstSecChanged { get; set; }
-    [Parameter]
-    public string Class { get; set; }
-    [Parameter]
-    public string SliderHeader { get; set; }
-    [Parameter]
-    public bool Disabled { get; set; }
+    [Parameter] public EventCallback<TValue> StartValueChanged { get; set; }
+    [Parameter] public EventCallback<TValue> EndValueChanged { get; set; }
+    [Parameter] public EventCallback<TValue> StartFirstChanged { get; set; }
+    [Parameter] public EventCallback<TValue> FirstSecChanged { get; set; }
+    [Parameter] public string Class { get; set; }
+    [Parameter] public string SliderHeader { get; set; }
+    [Parameter] public bool Disabled { get; set; }
 
     [Parameter]
     public RangeSliderConfiguration<TValue> Configuration
@@ -65,8 +58,8 @@
             startValue = value;
             configuration.SetSlider = true;
             configuration.Start[0] = value;
-            var StartFirstCalc = Convert.ToDouble(startValue) - Convert.ToDouble(configuration.Range.Min);
-            startFirst = (TValue)Convert.ChangeType(StartFirstCalc, typeof(TValue));
+            var startFirstCalculation = Convert.ToDouble(startValue) - Convert.ToDouble(configuration.Range.Min);
+            startFirst = (TValue)Convert.ChangeType(startFirstCalculation, typeof(TValue));
             Console.WriteLine(startFirst);
             JSRuntime.InvokeVoidAsync("updateSlider", configuration);
         }
@@ -84,8 +77,8 @@
             endValue = value;
             configuration.SetSlider = true;
             configuration.Start[1] = value;
-            var Total = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
-            firstSec = (TValue)Convert.ChangeType(Total, typeof(TValue));
+            var firstSecCalculation = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
+            firstSec = (TValue)Convert.ChangeType(firstSecCalculation, typeof(TValue));
             Console.WriteLine(firstSec);
             var OldRangeMax = Convert.ToDouble(configuration.Range.Max);
 
@@ -132,29 +125,29 @@
     [Parameter]
     public TValue StartFirst
     {
-        get
-        {
-            return startFirst;
-        }
+        get => startFirst;
         set
         {
             if (Convert.ToDouble(startFirst) != Convert.ToDouble(value))
+            {
                 startFirst = value;
+                if (StartFirstChanged.HasDelegate)
+                    StartFirstChanged.InvokeAsync(value);
+            }
         }
     }
     [Parameter]
     public TValue FirstSec
     {
-        get
-        {
-            return firstSec;
-        }
-        set
-        {
-            if (Convert.ToDouble(firstSec) != Convert.ToDouble(value))
-                firstSec = value;
-        }
+        get => firstSec;
+        set => firstSec = value;
     }
+
+    //private Task OnStartFirstChanged(ChangeEventArgs e)
+    //{
+    //    StartFirst = (TValue)e.Value;
+    //    return StartFirstChanged.InvokeAsync(StartFirst);
+    //}
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

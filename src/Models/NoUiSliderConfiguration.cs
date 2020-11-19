@@ -25,6 +25,7 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         //Allows slider handle to jump to mouse position on click
         public string Behaviour { get; set; } = "snap";
         public string Event { get; set; } = "end";
+        public string SlideEvent { get; set; } = "slide";
         public bool Growth { get; set; } = false;
         public string InputFormat { get; set; }
         public bool Animate { get; set; } = false;
@@ -33,6 +34,7 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         //Adds a limit of your choice to the range
         public double RangeLimit { get; set; } = 0;
         public double IncreaseRange { get; set; } = 0;
+        public double ReturnStep { get; set; } = 0;
     }
 
     public class Range<T>
