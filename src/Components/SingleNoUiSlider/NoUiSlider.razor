@@ -165,7 +165,7 @@
                             break;
                         case 100000000:
                             configuration.Step = (TValue)Convert.ChangeType(1000000, typeof(TValue));
-                            break;                        
+                            break;
                         case 1000000000:
                             configuration.Step = (TValue)Convert.ChangeType(10000000, typeof(TValue));
                             break;
@@ -192,13 +192,13 @@
                     }
                 }
 
-                if (Convert.ToDouble(startValue) % Convert.ToDouble(configuration.Step) != 0)
-                {
-                    configuration.ReturnStep = Convert.ToDouble(configuration.Step);
-                    Console.WriteLine($" I am going in {configuration.ReturnStep}");
-                    configuration.Step = (TValue)Convert.ChangeType(1, typeof(TValue));
-                    //configuration.Step = startValue;
-                }
+                //if (Convert.ToDouble(startValue) % Convert.ToDouble(configuration.Step) != 0)
+                //{
+                //    configuration.ReturnStep = Convert.ToDouble(configuration.Step);
+                //    Console.WriteLine($" I am going in {configuration.ReturnStep}");
+                //    configuration.Step = (TValue)Convert.ChangeType(1, typeof(TValue));
+                //    //configuration.Step = startValue;
+                //}
                 //if (configuration.ReturnStep > 0)
                 //{
                 //    configuration.Step = (TValue)Convert.ChangeType(1, typeof(TValue));

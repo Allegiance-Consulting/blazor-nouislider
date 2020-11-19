@@ -11,13 +11,12 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
         }
     }
     slider.noUiSlider.on('start', function () {
-            if (this.options.returnStep > 0) {
-                const opt = this.options;
-                opt.step = opt.returnStep;
-                opt.returnStep = 0;
-                this.updateOptions(opt, true);
-            }
-        //configuration.step = configuration.returnStep;
+            //if (this.options.returnStep > 0) {
+            //    const opt = this.options;
+            //    opt.step = opt.returnStep;
+            //    opt.returnStep = 0;
+            //    this.updateOptions(opt, true);
+            //}
     });
     slider.noUiSlider.on(configuration.event, function (val) {
         const numberFormatter = wNumb(configuration.tooltipsFormat);
