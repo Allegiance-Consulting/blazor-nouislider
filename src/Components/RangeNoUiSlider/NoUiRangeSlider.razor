@@ -4,7 +4,6 @@
 @implements IDisposable
 
 <div>
-    @*<div style="text-align: right">@FirstSec years</div>*@
     <div id="@configuration.Id.ToString()" class="@Class"></div>
 </div>
 <br />
@@ -66,7 +65,9 @@
             startValue = value;
             configuration.SetSlider = true;
             configuration.Start[0] = value;
-
+            var StartFirstCalc = Convert.ToDouble(startValue) - Convert.ToDouble(configuration.Range.Min);
+            startFirst = (TValue)Convert.ChangeType(StartFirstCalc, typeof(TValue));
+            Console.WriteLine(startFirst);
             JSRuntime.InvokeVoidAsync("updateSlider", configuration);
         }
     }
@@ -83,7 +84,9 @@
             endValue = value;
             configuration.SetSlider = true;
             configuration.Start[1] = value;
-
+            var Total = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
+            firstSec = (TValue)Convert.ChangeType(Total, typeof(TValue));
+            Console.WriteLine(firstSec);
             var OldRangeMax = Convert.ToDouble(configuration.Range.Max);
 
             if (configuration.Growth)
@@ -131,13 +134,12 @@
     {
         get
         {
-            var StartFirstCalc = Convert.ToDouble(startValue) - Convert.ToDouble(configuration.Range.Min);
-            startFirst = (TValue)Convert.ChangeType(StartFirstCalc, typeof(TValue));
             return startFirst;
         }
         set
         {
-            startFirst = value;
+            if (Convert.ToDouble(startFirst) != Convert.ToDouble(value))
+                startFirst = value;
         }
     }
     [Parameter]
@@ -145,13 +147,12 @@
     {
         get
         {
-            var Total = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
-            firstSec = (TValue)Convert.ChangeType(Total, typeof(TValue));
             return firstSec;
         }
         set
         {
-            firstSec = value;
+            if (Convert.ToDouble(firstSec) != Convert.ToDouble(value))
+                firstSec = value;
         }
     }
 
@@ -174,12 +175,14 @@
     }
 
     [JSInvokable("sliderValueChanged")]
-    public void SliderValueChanged(TValue newStartValue, TValue newEndValue)
+    public void SliderValueChanged(TValue newStartValue, TValue newEndValue /*TValue newStartFirst, TValue newFirstSec*/)
     {
-        if (StartValueChanged.HasDelegate || EndValueChanged.HasDelegate)
+        if (StartValueChanged.HasDelegate || EndValueChanged.HasDelegate || StartFirstChanged.HasDelegate || FirstSecChanged.HasDelegate)
         {
             StartValueChanged.InvokeAsync(newStartValue);
             EndValueChanged.InvokeAsync(newEndValue);
+            //StartFirstChanged.InvokeAsync(newStartFirst);
+            //FirstSecChanged.InvokeAsync(newFirstSec);
         }
     }
 

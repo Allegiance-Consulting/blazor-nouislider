@@ -59,6 +59,30 @@
                 //Temp variables for setting step to percentage of max range
                 var OldRangeMax = (double)Convert.ChangeType(configuration.Range.Max, typeof(double));
 
+                if (configuration.Growth)
+                {
+                    //Increase the max range when the slider hits the end of the slider base
+                    if (Convert.ToDouble(startValue) == Convert.ToDouble(configuration.Range.Max))
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
+                            configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                        }
+                    }
+                    if (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            while (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
+                            {
+                                var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
+                                configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                            }
+                        }
+                    }
+                }
+
                 //Increase slider range by value when reaching max value
                 if (configuration.IncreaseRange > 0)
                 {
@@ -83,28 +107,6 @@
                         }
                     }
 
-
-
-                    //Range limit implementation
-                    if (configuration.RangeLimit > 0)
-                    {
-                        if (Convert.ToDouble(configuration.Range.Max) >= configuration.RangeLimit)
-                        {
-                            if (typeof(TValue) == typeof(double))
-                            {
-                                var maxLimit = configuration.RangeLimit;
-                                configuration.Range.Max = (TValue)Convert.ChangeType(maxLimit, typeof(TValue));
-                            }
-                        }
-                        if (Convert.ToDouble(value) >= configuration.RangeLimit)
-                        {
-                            if (typeof(TValue) == typeof(double))
-                            {
-                                value = (TValue)Convert.ChangeType(configuration.RangeLimit, typeof(TValue));
-                            }
-                        }
-                    }
-
                     //Decrease max range when slider hits range minimum
                     //if (Convert.ToDouble(startValue) == 0 && Convert.ToDouble(configuration.Range.Max) > 100)
                     //{
@@ -120,26 +122,22 @@
                     //}
                 }
 
-                if (configuration.Growth)
+                //Range limit implementation
+                if (configuration.RangeLimit > 0)
                 {
-                    //Increase the max range when the slider hits the end of the slider base
-                    if (Convert.ToDouble(startValue) == Convert.ToDouble(configuration.Range.Max))
+                    if (Convert.ToDouble(configuration.Range.Max) >= configuration.RangeLimit)
                     {
                         if (typeof(TValue) == typeof(double))
                         {
-                            var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
-                            configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                            var maxLimit = configuration.RangeLimit;
+                            configuration.Range.Max = (TValue)Convert.ChangeType(maxLimit, typeof(TValue));
                         }
                     }
-                    if (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
+                    if (Convert.ToDouble(value) >= configuration.RangeLimit)
                     {
                         if (typeof(TValue) == typeof(double))
                         {
-                            while (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
-                            {
-                                var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
-                                configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
-                            }
+                            value = (TValue)Convert.ChangeType(configuration.RangeLimit, typeof(TValue));
                         }
                     }
                 }

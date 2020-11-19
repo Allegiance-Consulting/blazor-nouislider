@@ -9,8 +9,8 @@ namespace Allegiance.Blazor.NoUiSlider.Components.RangeNoUiSlider
     public partial class RangeSlider
     {
         public double[] rangeValue = new double[] { 10, 50 };
-        private double valBetween;
-        private double minFirst;
+        private double valBetween = 0;
+        private double minFirst = 0;
         public string red = "red";
         private bool disabled = false;
 
