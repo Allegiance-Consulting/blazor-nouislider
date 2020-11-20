@@ -10,14 +10,13 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
             connect[i].classList.add('c-' + i + '-color');
         }
     }
-    slider.noUiSlider.on('start', function () {
-            //if (this.options.returnStep > 0) {
-            //    const opt = this.options;
-            //    opt.step = opt.returnStep;
-            //    opt.returnStep = 0;
-            //    this.updateOptions(opt, true);
-            //}
-    });
+    if (configuration.returnStep > 0) {
+        slider.noUiSlider.on('start', function () {
+            var opt = this.options;
+            opt.step = opt.returnStep;
+            this.updateOptions(opt, true);
+        });
+    }
     slider.noUiSlider.on(configuration.event, function (val) {
         const numberFormatter = wNumb(configuration.tooltipsFormat);
         if (val.length === 1) {
@@ -33,6 +32,12 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
 window.updateSlider = function (configuration) {
     window.sliders.forEach((value, index) => {
         if (value.configuration.id === configuration.id) {
+            //Sets the step of the slider to 1 when the 'end' event fires
+            if (value.configuration.returnStep > 0) {
+                value.slider.noUiSlider.on('end', function () {
+                    value.configuration.step = 1;
+                });
+            }
             configuration.format = wNumb(configuration.tooltipsFormat);
             if (!configuration.setSlider) {
                 configuration.start = value.slider.noUiSlider.get();
@@ -42,6 +47,7 @@ window.updateSlider = function (configuration) {
             }
             value.slider.noUiSlider.updateOptions(configuration);
             value.configuration = configuration; configuration.eventconfiguration.event
+            //value.configuration.step = oldStep;
         }
     });
 }

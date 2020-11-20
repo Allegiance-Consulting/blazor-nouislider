@@ -51,7 +51,6 @@
         set
         {
             var OldStart = Convert.ToDouble(startValue);
-            var OldStep = configuration.ReturnStep;
             if (Convert.ToDouble(startValue) != Convert.ToDouble(value))
             {
                 configuration.Start = startValue = value;
@@ -146,6 +145,41 @@
 
                 if (configuration.EnableStep)
                 {
+                    //if (configuration.ReturnStep > 0)
+                    //{
+                    //    switch (Convert.ToDouble(configuration.Range.Max))
+                    //    {
+                    //        case 1000:
+                    //            configuration.ReturnStep = 10;
+                    //            break;
+                    //        case 10000:
+                    //            configuration.ReturnStep = 100;
+                    //            break;
+                    //        case 100000:
+                    //            configuration.ReturnStep = 1000;
+                    //            break;
+                    //        case 1000000:
+                    //            configuration.ReturnStep = 10000;
+                    //            break;
+                    //        case 10000000:
+                    //            configuration.ReturnStep = 100000;
+                    //            break;
+                    //        case 100000000:
+                    //            configuration.ReturnStep = 1000000;
+                    //            break;
+                    //        case 1000000000:
+                    //            configuration.ReturnStep = 10000000;
+                    //            break;
+                    //        case 10000000000:
+                    //            configuration.ReturnStep = 100000000;
+                    //            break;
+                    //        default:
+                    //            configuration.ReturnStep = 1;
+                    //            break;
+                    //    }
+                    //}
+                    //else
+                    //{
                     switch (Convert.ToDouble(configuration.Range.Max))
                     {
                         case 1000:
@@ -176,7 +210,7 @@
                             configuration.Step = (TValue)Convert.ChangeType(1, typeof(TValue));
                             break;
                     }
-                    configuration.ReturnStep = Convert.ToDouble(configuration.Step);
+                    //}
                 }
 
                 if (configuration.PercentageStep > 0)
@@ -191,7 +225,6 @@
                         OldRangeMax = (double)Convert.ChangeType(configuration.Range.Max, typeof(double));
                     }
                 }
-
                 //if (Convert.ToDouble(startValue) % Convert.ToDouble(configuration.Step) != 0)
                 //{
                 //    configuration.ReturnStep = Convert.ToDouble(configuration.Step);
@@ -201,7 +234,7 @@
                 //}
                 //if (configuration.ReturnStep > 0)
                 //{
-                //    configuration.Step = (TValue)Convert.ChangeType(1, typeof(TValue));
+                //configuration.Step = (TValue)Convert.ChangeType(configuration.ReturnStep, typeof(TValue));
                 //}
             }
             JSRuntime.InvokeVoidAsync("updateSlider", configuration);
@@ -252,13 +285,6 @@
     {
         if (StartValueChanged.HasDelegate)
         {
-            //if (configuration.ReturnStep > 0)
-            //{
-            //    Console.WriteLine(configuration.ReturnStep);
-            //    configuration.Step = (TValue)Convert.ChangeType(configuration.ReturnStep, typeof(TValue));
-            //    configuration.ReturnStep = 0;
-            //    JSRuntime.InvokeVoidAsync("updateSlider", configuration);
-            //}
             StartValueChanged.InvokeAsync(newValue);
         }
     }

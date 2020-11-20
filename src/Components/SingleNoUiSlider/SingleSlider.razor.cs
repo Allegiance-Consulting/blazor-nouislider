@@ -11,8 +11,8 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
 {
     public partial class SingleSlider : ComponentBase
     {
-        private static double myValue = 50;
-        private static double myValue2 = 50;
+        private double myValue = 50;
+        private double myValue2 = 50;
         private static Guid singleSliderId = Guid.NewGuid();
         private bool disabled = false;
         [Inject] IJSRuntime JSRuntime{get; set;}
@@ -31,9 +31,10 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             Animate = true,
             IncreaseRange = 50,
             Id = singleSliderId,
-            //EnableStep = true,
-            Step = 50,
-            //ReturnStep = 10
+            EnableStep = true,
+            ExactInput = true,
+            //Step = 50,
+            ReturnStep = 50
         };
 
         public NoUiSliderConfiguration<double> Config2 = new NoUiSliderConfiguration<double>
@@ -45,6 +46,17 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             },
             InputFormat = "percentage",
         };
+
+        public double MyValue
+        {
+            get => myValue;
+            set => myValue = value;
+        } 
+        public double MyValueInput
+        {
+            get => myValue;
+            set => myValue = value;
+        }
 
         public void Change()
         {
@@ -58,21 +70,21 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
 
         public void ChangeConfig()
         {
-            double TempStep = Config.PercentageStep;
-            Config.Range.Max = myValue * 10;
-            //Config.Step = 0;
-            if (TempStep > 0)
-            {
-                Config.PercentageStep = 0;
-                Thread.Sleep(100);
-                Config.PercentageStep = TempStep;
-                //int seconds = 100;
-                //var timer = new Timer(RenewSteps, null, 0, seconds);
-                //void RenewSteps()
-                //{
-                //    Config.PercentageStep = TempStep;
-                //}
-            }
+            //double TempStep = Config.PercentageStep;
+            //Config.Range.Max = myValue * 10;
+            ////Config.Step = 0;
+            //if (TempStep > 0)
+            //{
+            //    Config.PercentageStep = 0;
+            //    Thread.Sleep(100);
+            //    Config.PercentageStep = TempStep;
+            //    //int seconds = 100;
+            //    //var timer = new Timer(RenewSteps, null, 0, seconds);
+            //    //void RenewSteps()
+            //    //{
+            //    //    Config.PercentageStep = TempStep;
+            //    //}
+            //}
         }
 
         public void Disable()
