@@ -145,72 +145,72 @@
 
                 if (configuration.EnableStep)
                 {
-                    //if (configuration.ReturnStep > 0)
-                    //{
-                    //    switch (Convert.ToDouble(configuration.Range.Max))
-                    //    {
-                    //        case 1000:
-                    //            configuration.ReturnStep = 10;
-                    //            break;
-                    //        case 10000:
-                    //            configuration.ReturnStep = 100;
-                    //            break;
-                    //        case 100000:
-                    //            configuration.ReturnStep = 1000;
-                    //            break;
-                    //        case 1000000:
-                    //            configuration.ReturnStep = 10000;
-                    //            break;
-                    //        case 10000000:
-                    //            configuration.ReturnStep = 100000;
-                    //            break;
-                    //        case 100000000:
-                    //            configuration.ReturnStep = 1000000;
-                    //            break;
-                    //        case 1000000000:
-                    //            configuration.ReturnStep = 10000000;
-                    //            break;
-                    //        case 10000000000:
-                    //            configuration.ReturnStep = 100000000;
-                    //            break;
-                    //        default:
-                    //            configuration.ReturnStep = 1;
-                    //            break;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    switch (Convert.ToDouble(configuration.Range.Max))
+                    if (configuration.ReturnStep > 0)
                     {
-                        case 1000:
-                            configuration.Step = (TValue)Convert.ChangeType(10, typeof(TValue));
-                            break;
-                        case 10000:
-                            configuration.Step = (TValue)Convert.ChangeType(100, typeof(TValue));
-                            break;
-                        case 100000:
-                            configuration.Step = (TValue)Convert.ChangeType(1000, typeof(TValue));
-                            break;
-                        case 1000000:
-                            configuration.Step = (TValue)Convert.ChangeType(10000, typeof(TValue));
-                            break;
-                        case 10000000:
-                            configuration.Step = (TValue)Convert.ChangeType(100000, typeof(TValue));
-                            break;
-                        case 100000000:
-                            configuration.Step = (TValue)Convert.ChangeType(1000000, typeof(TValue));
-                            break;
-                        case 1000000000:
-                            configuration.Step = (TValue)Convert.ChangeType(10000000, typeof(TValue));
-                            break;
-                        case 10000000000:
-                            configuration.Step = (TValue)Convert.ChangeType(100000000, typeof(TValue));
-                            break;
-                        default:
-                            configuration.Step = (TValue)Convert.ChangeType(1, typeof(TValue));
-                            break;
+                        switch (Convert.ToDouble(configuration.Range.Max))
+                        {
+                            case 1000:
+                                configuration.ReturnStep = 10;
+                                break;
+                            case 10000:
+                                configuration.ReturnStep = 100;
+                                break;
+                            case 100000:
+                                configuration.ReturnStep = 1000;
+                                break;
+                            case 1000000:
+                                configuration.ReturnStep = 10000;
+                                break;
+                            case 10000000:
+                                configuration.ReturnStep = 100000;
+                                break;
+                            case 100000000:
+                                configuration.ReturnStep = 1000000;
+                                break;
+                            case 1000000000:
+                                configuration.ReturnStep = 10000000;
+                                break;
+                            case 10000000000:
+                                configuration.ReturnStep = 100000000;
+                                break;
+                            default:
+                                configuration.ReturnStep = 1;
+                                break;
+                        }
                     }
-                    //}
+                    else
+                    {
+                        switch (Convert.ToDouble(configuration.Range.Max))
+                        {
+                            case 1000:
+                                configuration.Step = (TValue)Convert.ChangeType(10, typeof(TValue));
+                                break;
+                            case 10000:
+                                configuration.Step = (TValue)Convert.ChangeType(100, typeof(TValue));
+                                break;
+                            case 100000:
+                                configuration.Step = (TValue)Convert.ChangeType(1000, typeof(TValue));
+                                break;
+                            case 1000000:
+                                configuration.Step = (TValue)Convert.ChangeType(10000, typeof(TValue));
+                                break;
+                            case 10000000:
+                                configuration.Step = (TValue)Convert.ChangeType(100000, typeof(TValue));
+                                break;
+                            case 100000000:
+                                configuration.Step = (TValue)Convert.ChangeType(1000000, typeof(TValue));
+                                break;
+                            case 1000000000:
+                                configuration.Step = (TValue)Convert.ChangeType(10000000, typeof(TValue));
+                                break;
+                            case 10000000000:
+                                configuration.Step = (TValue)Convert.ChangeType(100000000, typeof(TValue));
+                                break;
+                            default:
+                                configuration.Step = (TValue)Convert.ChangeType(1, typeof(TValue));
+                                break;
+                        }
+                    }
                 }
 
                 if (configuration.PercentageStep > 0)

@@ -29,12 +29,12 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             //PercentageStep = 10,
             InputFormat = "currency",
             Animate = true,
-            IncreaseRange = 50,
+            IncreaseRange = 500,
             Id = singleSliderId,
             EnableStep = true,
-            ExactInput = true,
+            //ExactInput = true,
             //Step = 50,
-            ReturnStep = 50
+            ReturnStep = 10
         };
 
         public NoUiSliderConfiguration<double> Config2 = new NoUiSliderConfiguration<double>
