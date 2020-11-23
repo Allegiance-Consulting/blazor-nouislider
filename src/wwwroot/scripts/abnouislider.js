@@ -17,6 +17,23 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
             this.updateOptions(opt, true);
         });
     }
+    slider.noUiSlider.on('update', function () {
+        if (this.options.changeColor) {
+            var tooltipColor = slider.querySelectorAll('.noUi-tooltip');
+            var handleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle');
+            var firstHandleOfRangeSlider = this.get([0]);
+            if (firstHandleOfRangeSlider !== null && firstHandleOfRangeSlider !== undefined) {
+                if (firstHandleOfRangeSlider[0] <= this.options.changeColorOnLessValue) {
+                    tooltipColor[0].setAttribute('style', 'background-color: ' + this.options.color);
+                    handleColor[0].setAttribute('style', 'background-color: ' + this.options.color);
+                }
+                if (firstHandleOfRangeSlider[0] > this.options.changeColorOnLessValue) {
+                    tooltipColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
+                    handleColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
+                }
+            }
+        }
+    });
     slider.noUiSlider.on(configuration.event, function (val) {
         const numberFormatter = wNumb(configuration.tooltipsFormat);
         if (val.length === 1) {

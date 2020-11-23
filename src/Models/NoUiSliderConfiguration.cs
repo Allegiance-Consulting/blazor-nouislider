@@ -32,6 +32,11 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         //Enables a default step value
         public bool EnableStep { get; set; } = false;
         public bool ExactInput { get; set; } = false;
+        //Changes the color of the slider tooltip and handle
+        //when sliderstart < ChangeColorOnLessValue
+        public bool ChangeColor { get; set; } = false;
+        public string Color { get; set; }
+        public double ChangeColorOnLessValue { get; set; }
         //Adds a limit of your choice to the range
         public double RangeLimit { get; set; } = 0;
         public double IncreaseRange { get; set; } = 0;

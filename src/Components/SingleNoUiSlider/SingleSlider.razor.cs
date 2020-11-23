@@ -30,11 +30,15 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             InputFormat = "currency",
             Animate = true,
             IncreaseRange = 500,
+            Growth = true,
             Id = singleSliderId,
             EnableStep = true,
             //ExactInput = true,
             //Step = 50,
-            ReturnStep = 10
+            ReturnStep = 10,
+            ChangeColor = true,
+            Color = "#EA6868",
+            ChangeColorOnLessValue = 45,
         };
 
         public NoUiSliderConfiguration<double> Config2 = new NoUiSliderConfiguration<double>
