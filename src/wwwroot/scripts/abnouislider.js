@@ -17,12 +17,6 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
             this.updateOptions(opt, true);
         });
     }
-    if (configuration.event === "slide" && configuration.manualSliderSet) {
-        slider.noUiSlider.on('end', function () {
-            slider.noUiSlider.set(configuration.start)
-            dotNetObjectReference.invokeMethodAsync("fireEndEvent")
-        });
-    }
     slider.noUiSlider.on('update', function () {
         if (this.options.changeColor) {
             var tooltipColor = slider.querySelectorAll('.noUi-tooltip');
@@ -40,6 +34,11 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
             }
         }
     });
+    if (configuration.manualSliderSet) {
+        slider.noUiSlider.on('end', function () {
+            dotNetObjectReference.invokeMethodAsync("fireEndEvent")
+        });
+    }
     slider.noUiSlider.on(configuration.event, function (val) {
         const numberFormatter = wNumb(configuration.tooltipsFormat);
         if (val.length === 1) {
@@ -65,13 +64,6 @@ window.updateSlider = function (configuration) {
             if (!configuration.setSlider) {
                 configuration.start = value.slider.noUiSlider.get();
             }
-            //else if (configuration.event === "slide" && configuration.manualSliderSet) {
-            //    value.slider.noUiSlider.on('end', function () {
-            //        value.slider.noUiSlider.set(configuration.start)
-            //        console.log("End event hit.")
-            //        dotNetObjectReference.invokeMethodAsync("fireEndEvent")
-            //    });
-            //}
             else if (configuration.event === "set" || configuration.event === "end" || configuration.event === "change") {
                 value.slider.noUiSlider.set(configuration.start);
             }

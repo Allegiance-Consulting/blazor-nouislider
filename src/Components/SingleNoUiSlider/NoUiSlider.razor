@@ -18,7 +18,7 @@
     [Parameter]
     public EventCallback<TValue> StartValueChanged { get; set; }
     [Parameter]
-    public Action FireEndEventChanged { get; set; }
+    public Func<Task> FireEndEventChanged { get; set; }
     [Parameter]
     public bool Disabled { get; set; }
 
@@ -295,7 +295,6 @@
     public void FireEndEvent()
     {
         FireEndEventChanged.Invoke();
-        Console.WriteLine("Fire event {val}");
     }
 
     void IDisposable.Dispose()

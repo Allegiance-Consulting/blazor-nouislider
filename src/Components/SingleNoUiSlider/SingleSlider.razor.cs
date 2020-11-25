@@ -82,9 +82,10 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             Config2.Range.Max = 300;
         }
 
-        public void setSlidetAfterSlideChanged() 
+        public async Task setSlidetAfterSlideChanged() 
         {
-                Console.WriteLine("I have done it SUCCESSFULLY");
+            await Task.Delay(500);
+            Console.WriteLine("I have done it SUCCESSFULLY");
         }
 
         public void ChangeConfig()

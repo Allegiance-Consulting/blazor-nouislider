@@ -60,7 +60,6 @@
             configuration.Start[0] = value;
             var startFirstCalculation = Convert.ToDouble(startValue) - Convert.ToDouble(configuration.Range.Min);
             startFirst = (TValue)Convert.ChangeType(startFirstCalculation, typeof(TValue));
-            Console.WriteLine(startFirst);
             JSRuntime.InvokeVoidAsync("updateSlider", configuration);
         }
     }
@@ -79,7 +78,6 @@
             configuration.Start[1] = value;
             var firstSecCalculation = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
             firstSec = (TValue)Convert.ChangeType(firstSecCalculation, typeof(TValue));
-            Console.WriteLine(firstSec);
             var OldRangeMax = Convert.ToDouble(configuration.Range.Max);
 
             if (configuration.Growth)
