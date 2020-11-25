@@ -4,6 +4,7 @@ using Microsoft.JSInterop;
 using System;
 using System.Dynamic;
 using System.Globalization;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,6 +16,8 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
         private double myValue2 = 50;
         private static Guid singleSliderId = Guid.NewGuid();
         private bool disabled = false;
+        private bool setSlidetAfterSlide;
+        //private EventCallback<bool> setSlidetAfterSlideChanged { get; set; }
         [Inject] IJSRuntime JSRuntime{get; set;}
 
         public NoUiSliderConfiguration<double> Config = new NoUiSliderConfiguration<double>
@@ -39,6 +42,8 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             ChangeColor = true,
             Color = "#EA6868",
             ChangeColorOnLessValue = 45,
+            ManualSliderSet = true,
+            Event = "slide"
         };
 
         public NoUiSliderConfiguration<double> Config2 = new NoUiSliderConfiguration<double>
@@ -54,7 +59,12 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
         public double MyValue
         {
             get => myValue;
-            set => myValue = value;
+            set 
+            { 
+                myValue = value;
+                //Task.Delay(2000, Console.WriteLine("Delay")).Wait();
+                //Console.WriteLine("Delay hit");
+            }
         } 
         public double MyValueInput
         {
@@ -70,6 +80,11 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             myValue2 = 100;
             Config.Range.Max = 300;
             Config2.Range.Max = 300;
+        }
+
+        public void setSlidetAfterSlideChanged() 
+        {
+                Console.WriteLine("I have done it SUCCESSFULLY");
         }
 
         public void ChangeConfig()

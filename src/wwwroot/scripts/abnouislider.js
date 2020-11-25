@@ -17,6 +17,12 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
             this.updateOptions(opt, true);
         });
     }
+    if (configuration.event === "slide" && configuration.manualSliderSet) {
+        slider.noUiSlider.on('end', function () {
+            slider.noUiSlider.set(configuration.start)
+            dotNetObjectReference.invokeMethodAsync("fireEndEvent", true)
+        });
+    }
     slider.noUiSlider.on('update', function () {
         if (this.options.changeColor) {
             var tooltipColor = slider.querySelectorAll('.noUi-tooltip');
@@ -46,7 +52,7 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
     window.sliders.push({ slider, configuration, dotNetObjectReference });
 }
 
-window.updateSlider = function (configuration) {
+window.updateSlider = function (configuration, dotNetObjectReference) {
     window.sliders.forEach((value, index) => {
         if (value.configuration.id === configuration.id) {
             //Sets the step of the slider to 1 when the 'end' event fires
@@ -59,6 +65,13 @@ window.updateSlider = function (configuration) {
             if (!configuration.setSlider) {
                 configuration.start = value.slider.noUiSlider.get();
             }
+            //else if (configuration.event === "slide" && configuration.manualSliderSet) {
+            //    value.slider.noUiSlider.on('end', function () {
+            //        value.slider.noUiSlider.set(configuration.start)
+            //        console.log("End event hit.")
+            //        dotNetObjectReference.invokeMethodAsync("fireEndEvent", "hit")
+            //    });
+            //}
             else if (configuration.event === "set" || configuration.event === "end" || configuration.event === "change") {
                 value.slider.noUiSlider.set(configuration.start);
             }
@@ -80,10 +93,3 @@ window.enableSliderHandle = function (sliderId) {
     slider.removeAttribute('disabled');
 
 }
-//function disableHandle(element) {
-//    if (configuration.id.configuration.disable) {
-//        element.setAttribute('disabled', true);
-//    } else {
-//        element.removeAttribute('disabled');
-//    }
-//}

@@ -19,6 +19,7 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public bool Disabled { get; set; } = false;
         public TooltipsFormat TooltipsFormat { get; set; } = new TooltipsFormat();
         public bool SetSlider { get; set; } = false;
+        public bool ManualSliderSet { get; set; } = false;
         public T Step { get; set; } = (T)Convert.ChangeType(0, typeof(T));
         //If percentage step is sent in, the slider step jumps with a percentage of max value
         public double PercentageStep { get; set; } = 0;
