@@ -18,7 +18,7 @@
     [Parameter]
     public EventCallback<TValue> StartValueChanged { get; set; }
     [Parameter]
-    public EventCallback<bool> FireEndEventChanged { get; set; }
+    public Action FireEndEventChanged { get; set; }
     [Parameter]
     public bool Disabled { get; set; }
 
@@ -239,7 +239,6 @@
                 //configuration.Step = (TValue)Convert.ChangeType(configuration.ReturnStep, typeof(TValue));
                 //}
             }
-            Console.WriteLine(configuration.Start);
             JSRuntime.InvokeVoidAsync("updateSlider", configuration);
         }
     }
@@ -293,13 +292,10 @@
     }
 
     [JSInvokable("fireEndEvent")]
-    public void FireEndEvent(bool set)
+    public void FireEndEvent()
     {
-        if (FireEndEventChanged.HasDelegate)
-        {
-            FireEndEventChanged.InvokeAsync(set);
-            Console.WriteLine("Fire event {val}");
-        }
+        FireEndEventChanged.Invoke();
+        Console.WriteLine("Fire event {val}");
     }
 
     void IDisposable.Dispose()

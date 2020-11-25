@@ -20,7 +20,7 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
     if (configuration.event === "slide" && configuration.manualSliderSet) {
         slider.noUiSlider.on('end', function () {
             slider.noUiSlider.set(configuration.start)
-            dotNetObjectReference.invokeMethodAsync("fireEndEvent", true)
+            dotNetObjectReference.invokeMethodAsync("fireEndEvent")
         });
     }
     slider.noUiSlider.on('update', function () {
@@ -52,7 +52,7 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
     window.sliders.push({ slider, configuration, dotNetObjectReference });
 }
 
-window.updateSlider = function (configuration, dotNetObjectReference) {
+window.updateSlider = function (configuration) {
     window.sliders.forEach((value, index) => {
         if (value.configuration.id === configuration.id) {
             //Sets the step of the slider to 1 when the 'end' event fires
@@ -69,7 +69,7 @@ window.updateSlider = function (configuration, dotNetObjectReference) {
             //    value.slider.noUiSlider.on('end', function () {
             //        value.slider.noUiSlider.set(configuration.start)
             //        console.log("End event hit.")
-            //        dotNetObjectReference.invokeMethodAsync("fireEndEvent", "hit")
+            //        dotNetObjectReference.invokeMethodAsync("fireEndEvent")
             //    });
             //}
             else if (configuration.event === "set" || configuration.event === "end" || configuration.event === "change") {
