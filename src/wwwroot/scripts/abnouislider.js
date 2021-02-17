@@ -12,10 +12,9 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
     }
     if (configuration.returnStep > 0) {
         slider.noUiSlider.on('start', function () {
-            //var opt = this.options;
-            //opt.step = opt.returnStep;
-            //this.updateOptions(opt, true)
-            configuration.step = configuration.returnStep;
+            var opt = this.options;
+            opt.step = opt.returnStep;
+            this.updateOptions(opt, true);
         });
     }
     slider.noUiSlider.on('update', function () {
