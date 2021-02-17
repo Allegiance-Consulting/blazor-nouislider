@@ -10,13 +10,12 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
             connect[i].classList.add('c-' + i + '-color');
         }
     }
-    var option = this.options;
     if (configuration.returnStep > 0) {
         slider.noUiSlider.on('start', function () {
-            var opt = this.get[0].options;
-            opt.step = opt.returnStep;
-            this.get[0].updateOptions(opt, true)
-            //this.updateOptions(opt, true);
+            //var opt = this.options;
+            //opt.step = opt.returnStep;
+            //this.updateOptions(opt, true)
+            configuration.step = configuration.returnStep;
         });
     }
     slider.noUiSlider.on('update', function () {

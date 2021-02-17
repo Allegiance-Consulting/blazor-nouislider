@@ -26,7 +26,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             Range = new Range<double>
             {
                 Min = 0,
-                Max = 100
+                Max = 1000
             },
             //To have the step linked to a percentage of max value
             //PercentageStep = 10,
@@ -38,7 +38,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             EnableStep = true,
             //ExactInput = true,
             //Step = 50,
-            ReturnStep = 10,
+            ReturnStep = 100,
             ChangeColor = true,
             Color = "#EA6868",
             ChangeColorOnLessValue = 45,
