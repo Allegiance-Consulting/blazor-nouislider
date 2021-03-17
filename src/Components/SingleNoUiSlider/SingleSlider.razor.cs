@@ -34,16 +34,14 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             Animate = true,
             IncreaseRange = 500,
             Growth = true,
-            Id = singleSliderId,
+            //Id = singleSliderId,
             EnableStep = true,
             //ExactInput = true,
             //Step = 50,
-            ReturnStep = 100,
-            ChangeColor = true,
+            //ReturnStep = 100,
+            ChangeColorLessThen = true,
             Color = "#EA6868",
-            ChangeColorOnLessValue = 45,
-            ManualSliderSet = true,
-            Event = "slide"
+            ChangeColorOnValue = 50,
         };
 
         public NoUiSliderConfiguration<double> Config2 = new NoUiSliderConfiguration<double>
@@ -54,6 +52,10 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
                 Max = 100
             },
             InputFormat = "percentage",
+            ReturnStep = 5,
+            ChangeColorBiggerThen = true,
+            Color = "red",
+            ChangeColorOnValue = 50,
         };
 
         public double MyValue
