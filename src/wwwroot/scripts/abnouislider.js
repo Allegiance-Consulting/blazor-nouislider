@@ -37,7 +37,7 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
             var tooltipColor = slider.querySelectorAll('.noUi-tooltip')[0];
             var handleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle')[0];
             var handleOfSlider = this.get();
-            var sliderValue = Number(handleOfSlider.replace("R ", ""));
+            var sliderValue = Number(handleOfSlider.replaceAll("R", "").replaceAll(" ", "").replaceAll("%", ""));
             if (sliderValue !== null && sliderValue !== undefined) {
                 if (sliderValue >= this.options.changeColorBiggerThen) {
                     tooltipColor.setAttribute('style', 'background-color: ' + this.options.color);
