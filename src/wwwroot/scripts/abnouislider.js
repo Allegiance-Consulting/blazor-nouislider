@@ -34,7 +34,6 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
             }
         }
         if (this.options.changeColorBiggerThen > 0) {
-            debugger;
             var tooltipColor = slider.querySelectorAll('.noUi-tooltip')[0];
             var handleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle')[0];
             var handleOfSlider = this.get();
