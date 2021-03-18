@@ -18,7 +18,7 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
         });
     }
     slider.noUiSlider.on('update', function () {
-        if (this.options.changeColorLessThen > 0 && this.options.changeColorBiggerThen == 0) {
+        if (this.options.changeColorLessThen > 0) {
             var tooltipColor = slider.querySelectorAll('.noUi-tooltip');
             var handleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle');
             var firstHandleOfRangeSlider = this.get([0]);
@@ -33,20 +33,20 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
                 }
             }
         }
-        if (this.options.changeColorBiggerThen > 0 && this.options.changeColorLessThen == 0) {
+        if (this.options.changeColorBiggerThen > 0) {
             debugger;
-            var tooltipColor = slider.querySelectorAll('.noUi-tooltip');
-            var handleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle');
+            var tooltipColor = slider.querySelectorAll('.noUi-tooltip')[0];
+            var handleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle')[0];
             var handleOfSlider = this.get();
             var sliderValue = Number(handleOfSlider.replace("R ", ""));
             if (sliderValue !== null && sliderValue !== undefined) {
                 if (sliderValue >= this.options.changeColorBiggerThen) {
-                    tooltipColor[0].setAttribute('style', 'background-color: ' + this.options.color);
-                    handleColor[0].setAttribute('style', 'background-color: ' + this.options.color);
+                    tooltipColor.setAttribute('style', 'background-color: ' + this.options.color);
+                    handleColor.setAttribute('style', 'background-color: ' + this.options.color);
                 }
                 if (sliderValue < this.options.changeColorBiggerThen) {
-                    tooltipColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
-                    handleColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
+                    tooltipColor.removeAttribute('style', 'background-color: ' + this.options.color);
+                    handleColor.removeAttribute('style', 'background-color: ' + this.options.color);
                 }
             }
         }
