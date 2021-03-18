@@ -35,7 +35,7 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public bool ExactInput { get; set; } = false;
         //Changes the color of the slider tooltip and handle
         //when sliderstart < ChangeColorOnLessValue
-        public double ChangeColorLessThen { get; set; } = 0;
+        //public double ChangeColorLessThen { get; set; } = 0;
         public double ChangeColorBiggerThen { get; set; } = 0;
         public string Color { get; set; }
         //Adds a limit of your choice to the range

@@ -23,7 +23,6 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         //Changes the color of the slider tooltip and handle
         //when sliderstart < ChangeColorOnLessValue
         public double ChangeColorLessThen { get; set; } = 0;
-        public double ChangeColorBiggerThen { get; set; } = 0;
         public string Color { get; set; }
     }
     public class Ranges<T>

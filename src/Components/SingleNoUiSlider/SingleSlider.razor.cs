@@ -39,7 +39,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             //ExactInput = true,
             //Step = 50,
             //ReturnStep = 100,
-            ChangeColorLessThen = 50,
+            ChangeColorBiggerThen = 500,
             Color = "#EA6868",
         };
 
