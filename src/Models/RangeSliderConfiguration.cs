@@ -22,7 +22,10 @@ namespace Allegiance.Blazor.NoUiSlider.Models
         public bool GenerateConnectClasses { get; set; } = false;
         //Changes the color of the slider tooltip and handle
         //when sliderstart < ChangeColorOnLessValue
-        public double ChangeColorLessThen { get; set; } = 0;
+        public double ChangeColorFirstHandleLessThen { get; set; } = 0;
+        public double ChangeColorFirstHandleBiggerThen { get; set; } = 0;
+        public double ChangeColorSecHandleLessThen { get; set; } = 0;
+        public double ChangeColorSecHandleBiggerThen { get; set; } = 0;
         public string Color { get; set; }
     }
     public class Ranges<T>
