@@ -18,79 +18,73 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
         });
     }
     slider.noUiSlider.on('update', function () {
+        var rangeSliderTooltipColor = slider.querySelectorAll('.noUi-tooltip');
+        var rangeSliderHandleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle');
+        var firstHandleOfRangeSlider = this.get([0]);
+        var secHandleOfRangeSlider = this.get([1]);
+
+        var singleSliderTooltipColor = slider.querySelectorAll('.noUi-tooltip')[0];
+        var singleSliderHandleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle')[0];
+        var handleOfSlider = this.get();
+
         if (this.options.changeColorFirstHandleLessThen > 0) {
-            var tooltipColor = slider.querySelectorAll('.noUi-tooltip');
-            var handleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle');
-            var firstHandleOfRangeSlider = this.get([0]);
             if (firstHandleOfRangeSlider !== null && firstHandleOfRangeSlider !== undefined) {
                 if (firstHandleOfRangeSlider[0] <= this.options.changeColorFirstHandleLessThen) {
-                    tooltipColor[0].setAttribute('style', 'background-color: ' + this.options.color);
-                    handleColor[0].setAttribute('style', 'background-color: ' + this.options.color);
+                    rangeSliderTooltipColor[0].setAttribute('style', 'background-color: ' + this.options.color);
+                    rangeSliderHandleColor[0].setAttribute('style', 'background-color: ' + this.options.color);
                 }
                 if (firstHandleOfRangeSlider[0] > this.options.changeColorFirstHandleLessThen) {
-                    tooltipColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
-                    handleColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
+                    rangeSliderTooltipColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
+                    rangeSliderHandleColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
                 }
             }
         }
         if (this.options.changeColorFirstHandleBiggerThen > 0) {
-            var tooltipColor = slider.querySelectorAll('.noUi-tooltip');
-            var handleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle');
-            var firstHandleOfRangeSlider = this.get([0]);
             if (firstHandleOfRangeSlider !== null && firstHandleOfRangeSlider !== undefined) {
                 if (firstHandleOfRangeSlider[0] >= this.options.changeColorFirstHandleBiggerThen) {
-                    tooltipColor[0].setAttribute('style', 'background-color: ' + this.options.color);
-                    handleColor[0].setAttribute('style', 'background-color: ' + this.options.color);
+                    rangeSliderTooltipColor[0].setAttribute('style', 'background-color: ' + this.options.color);
+                    rangeSliderHandleColor[0].setAttribute('style', 'background-color: ' + this.options.color);
                 }
                 if (firstHandleOfRangeSlider[0] < this.options.changeColorFirstHandleBiggerThen) {
-                    tooltipColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
-                    handleColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
+                    rangeSliderTooltipColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
+                    rangeSliderHandleColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
                 }
             }
         }
         if (this.options.changeColorSecHandleLessThen > 0) {
-            var tooltipColor = slider.querySelectorAll('.noUi-tooltip');
-            var handleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle');
-            var firstHandleOfRangeSlider = this.get([1]);
-            if (firstHandleOfRangeSlider !== null && firstHandleOfRangeSlider !== undefined) {
-                if (firstHandleOfRangeSlider[1] <= this.options.changeColorSecHandleLessThen) {
-                    tooltipColor[1].setAttribute('style', 'background-color: ' + this.options.color);
-                    handleColor[1].setAttribute('style', 'background-color: ' + this.options.color);
+            if (secHandleOfRangeSlider !== null && secHandleOfRangeSlider !== undefined) {
+                if (secHandleOfRangeSlider[1] <= this.options.changeColorSecHandleLessThen) {
+                    rangeSliderTooltipColor[1].setAttribute('style', 'background-color: ' + this.options.color);
+                    rangeSliderHandleColor[1].setAttribute('style', 'background-color: ' + this.options.color);
                 }
-                if (firstHandleOfRangeSlider[1] > this.options.changeColorSecHandleLessThen) {
-                    tooltipColor[1].removeAttribute('style', 'background-color: ' + this.options.color);
-                    handleColor[1].removeAttribute('style', 'background-color: ' + this.options.color);
+                if (secHandleOfRangeSlider[1] > this.options.changeColorSecHandleLessThen) {
+                    rangeSliderTooltipColor[1].removeAttribute('style', 'background-color: ' + this.options.color);
+                    rangeSliderHandleColor[1].removeAttribute('style', 'background-color: ' + this.options.color);
                 }
             }
         }
         if (this.options.changeColorSecHandleBiggerThen > 0) {
-            var tooltipColor = slider.querySelectorAll('.noUi-tooltip');
-            var handleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle');
-            var firstHandleOfRangeSlider = this.get([1]);
-            if (firstHandleOfRangeSlider !== null && firstHandleOfRangeSlider !== undefined) {
-                if (firstHandleOfRangeSlider[1] >= this.options.changeColorSecHandleBiggerThen) {
-                    tooltipColor[1].setAttribute('style', 'background-color: ' + this.options.color);
-                    handleColor[1].setAttribute('style', 'background-color: ' + this.options.color);
+            if (secHandleOfRangeSlider !== null && secHandleOfRangeSlider !== undefined) {
+                if (secHandleOfRangeSlider[1] >= this.options.changeColorSecHandleBiggerThen) {
+                    rangeSliderTooltipColor[1].setAttribute('style', 'background-color: ' + this.options.color);
+                    rangeSliderHandleColor[1].setAttribute('style', 'background-color: ' + this.options.color);
                 }
-                if (firstHandleOfRangeSlider[1] < this.options.changeColorSecHandleBiggerThen) {
-                    tooltipColor[1].removeAttribute('style', 'background-color: ' + this.options.color);
-                    handleColor[1].removeAttribute('style', 'background-color: ' + this.options.color);
+                if (secHandleOfRangeSlider[1] < this.options.changeColorSecHandleBiggerThen) {
+                    rangeSliderTooltipColor[1].removeAttribute('style', 'background-color: ' + this.options.color);
+                    rangeSliderHandleColor[1].removeAttribute('style', 'background-color: ' + this.options.color);
                 }
             }
         }
         if (this.options.changeColorBiggerThen > 0) {
-            var tooltipColor = slider.querySelectorAll('.noUi-tooltip')[0];
-            var handleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle')[0];
-            var handleOfSlider = this.get();
             var sliderValue = Number(handleOfSlider.replaceAll("R", "").replaceAll(" ", "").replaceAll("%", ""));
             if (sliderValue !== null && sliderValue !== undefined) {
                 if (sliderValue >= this.options.changeColorBiggerThen) {
-                    tooltipColor.setAttribute('style', 'background-color: ' + this.options.color);
-                    handleColor.setAttribute('style', 'background-color: ' + this.options.color);
+                    singleSliderTooltipColor.setAttribute('style', 'background-color: ' + this.options.color);
+                    singleSliderHandleColor.setAttribute('style', 'background-color: ' + this.options.color);
                 }
                 if (sliderValue < this.options.changeColorBiggerThen) {
-                    tooltipColor.removeAttribute('style', 'background-color: ' + this.options.color);
-                    handleColor.removeAttribute('style', 'background-color: ' + this.options.color);
+                    singleSliderTooltipColor.removeAttribute('style', 'background-color: ' + this.options.color);
+                    singleSliderHandleColor.removeAttribute('style', 'background-color: ' + this.options.color);
                 }
             }
         }
