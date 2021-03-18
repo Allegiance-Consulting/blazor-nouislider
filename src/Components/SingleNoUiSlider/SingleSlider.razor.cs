@@ -39,9 +39,8 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             //ExactInput = true,
             //Step = 50,
             //ReturnStep = 100,
-            ChangeColorLessThen = true,
+            ChangeColorLessThen = 50,
             Color = "#EA6868",
-            ChangeColorOnValue = 50,
         };
 
         public NoUiSliderConfiguration<double> Config2 = new NoUiSliderConfiguration<double>
@@ -53,9 +52,8 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             },
             InputFormat = "percentage",
             ReturnStep = 5,
-            ChangeColorBiggerThen = true,
+            ChangeColorBiggerThen = 50,
             Color = "red",
-            ChangeColorOnValue = 50,
         };
 
         public double MyValue

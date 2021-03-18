@@ -32,9 +32,8 @@ namespace Allegiance.Blazor.NoUiSlider.Components.RangeNoUiSlider
             GenerateConnectClasses = true,
             Connect = new bool[] { true, true, true },
             Growth = true,
-            ChangeColorBiggerThen = true,
+            ChangeColorLessThen = 60,
             Color = "#EA6868",
-            ChangeColorOnValue = 60
         };
 
         private void SetMinFirst(double value)

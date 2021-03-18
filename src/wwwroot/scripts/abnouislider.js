@@ -18,31 +18,31 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
         });
     }
     slider.noUiSlider.on('update', function () {
-        if (this.options.changeColorLessThen) {
+        if (this.options.changeColorLessThen > 0 && this.options.changeColorBiggerThen == 0) {
             var tooltipColor = slider.querySelectorAll('.noUi-tooltip');
             var handleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle');
             var firstHandleOfRangeSlider = this.get([0]);
             if (firstHandleOfRangeSlider !== null && firstHandleOfRangeSlider !== undefined) {
-                if (firstHandleOfRangeSlider[0] <= this.options.changeColorOnValue) {
+                if (firstHandleOfRangeSlider[0] <= this.options.changeColorLessThen) {
                     tooltipColor[0].setAttribute('style', 'background-color: ' + this.options.color);
                     handleColor[0].setAttribute('style', 'background-color: ' + this.options.color);
                 }
-                if (firstHandleOfRangeSlider[0] > this.options.changeColorOnValue) {
+                if (firstHandleOfRangeSlider[0] > this.options.changeColorLessThen) {
                     tooltipColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
                     handleColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
                 }
             }
         }
-        if (this.options.changeColorBiggerThen) {
+        if (this.options.changeColorBiggerThen > 0 && this.options.changeColorLessThen == 0) {
             var tooltipColor = slider.querySelectorAll('.noUi-tooltip');
             var handleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle');
             var firstHandleOfRangeSlider = this.get([0]);
             if (firstHandleOfRangeSlider !== null && firstHandleOfRangeSlider !== undefined) {
-                if (firstHandleOfRangeSlider[0] >= this.options.changeColorOnValue) {
+                if (firstHandleOfRangeSlider[0] >= this.options.changeColorBiggerThen) {
                     tooltipColor[0].setAttribute('style', 'background-color: ' + this.options.color);
                     handleColor[0].setAttribute('style', 'background-color: ' + this.options.color);
                 }
-                if (firstHandleOfRangeSlider[0] < this.options.changeColorOnValue) {
+                if (firstHandleOfRangeSlider[0] < this.options.changeColorBiggerThen) {
                     tooltipColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
                     handleColor[0].removeAttribute('style', 'background-color: ' + this.options.color);
                 }
