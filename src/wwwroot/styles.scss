@@ -142,3 +142,22 @@
         cursor: wait;
     }
 }
+
+.single-slider-color {
+    .noUi-connect {
+        background-color: #EA6868;
+    }
+
+    .noUi-tooltip {
+        background-color: #EA6868;
+    }
+
+    .noUi-horizontal .noUi-handle {
+        background-color: #EA6868;
+    }
+
+    .noUi-touch-area {
+        background-color: #EA6868;
+        border-radius: 12px;
+    }
+}

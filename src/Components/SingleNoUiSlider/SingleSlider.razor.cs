@@ -40,7 +40,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             //Step = 50,
             //ReturnStep = 100,
             ChangeColorBiggerThen = 5000000,
-            Color = "#EA6868",
+            singleSliderConnectClass = "single-slider-color",
         };
 
         public NoUiSliderConfiguration<double> Config2 = new NoUiSliderConfiguration<double>

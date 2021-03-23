@@ -25,7 +25,7 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
 
         var singleSliderTooltipColor = slider.querySelectorAll('.noUi-tooltip')[0];
         var singleSliderHandleColor = slider.querySelectorAll('.noUi-horizontal .noUi-handle')[0];
-        var singleSliderConnectColor = slider.querySelectorAll('.noUi-connect')[0];
+        var singleSliderConnectColor = slider.querySelectorAll('.noUi-base')[0];
         var handleOfSlider = this.get();
 
         if (this.options.changeColorFirstHandleLessThen > 0) {
@@ -82,12 +82,13 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
                 if (sliderValue >= this.options.changeColorBiggerThen) {
                     singleSliderTooltipColor.setAttribute('style', 'background-color: ' + this.options.color);
                     singleSliderHandleColor.setAttribute('style', 'background-color: ' + this.options.color);
-                    singleSliderConnectColor.setAttribute('style', 'background-color: ' + this.options.color);
+                    singleSliderConnectColor.classList.add(this.options.singleSliderConnectClass);
                 }
                 if (sliderValue < this.options.changeColorBiggerThen) {
                     singleSliderTooltipColor.removeAttribute('style', 'background-color: ' + this.options.color);
                     singleSliderHandleColor.removeAttribute('style', 'background-color: ' + this.options.color);
                     singleSliderConnectColor.removeAttribute('style', 'background-color: ' + this.options.color);
+                    singleSliderConnectColor.classList.remove(this.options.singleSliderConnectClass);
                 }
             }
         }

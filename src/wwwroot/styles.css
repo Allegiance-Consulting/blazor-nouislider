@@ -95,3 +95,16 @@
     cursor: wait; }
   .disable-handle .noUi-tooltip {
     cursor: wait; }
+
+.single-slider-color .noUi-connect {
+  background-color: #EA6868; }
+
+.single-slider-color .noUi-tooltip {
+  background-color: #EA6868; }
+
+.single-slider-color .noUi-horizontal .noUi-handle {
+  background-color: #EA6868; }
+
+.single-slider-color .noUi-touch-area {
+  background-color: #EA6868;
+  border-radius: 12px; }
