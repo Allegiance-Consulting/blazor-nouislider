@@ -53,7 +53,7 @@ namespace Allegiance.Blazor.NoUiSlider.Components.SingleNoUiSlider
             InputFormat = "percentage",
             ReturnStep = 5,
             ChangeColorBiggerThen = 50,
-            Color = "red",
+            Color = "blue",
         };
 
         public double MyValue

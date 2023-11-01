@@ -1,0 +1,41 @@
+﻿@using MudBlazor
+
+<MudBlazor.MudThemeProvider Theme="avalonTheme" />
+<MudBlazor.MudDialogProvider DisableBackdropClick="true" />
+<MudBlazor.MudSnackbarProvider />
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p role="alert">Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
+
+@code {
+    private MudTheme libertyTheme = new()
+    {
+        Palette = new()
+        {
+            Primary = "#002B99",
+            Secondary = "#EA6868",
+            Tertiary = "#00C08C",
+            Error = "#F46363"
+        }
+    };
+
+    private MudTheme avalonTheme = new()
+    {
+        Palette = new()
+        {
+            Primary = "#207DCE",
+            Secondary = "#EA6868",
+            Tertiary = "#00C08C",
+            Error = "#c14b4b"
+        }
+    };
+}

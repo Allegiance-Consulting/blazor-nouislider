@@ -1,0 +1,131 @@
+﻿.noUi-tooltip {
+  top: auto !important;
+  left: -40px;
+  min-width: 100px;
+  bottom: 24px !important;
+  border-radius: 30px;
+  color: white;
+  border-radius: 30px;
+  background-color: var(--primary-slider-color);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.noUi-handle:after, .noUi-handle:before {
+  display: none;
+}
+
+.noUi-horizontal {
+  height: 5px;
+  margin: 55px 0px;
+}
+.noUi-horizontal .noUi-handle {
+  background: var(--primary-slider-color);
+  border: none;
+  width: 20px;
+  height: 20px;
+  box-shadow: none;
+  border-radius: 30px;
+  top: -9px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease-in-out;
+}
+.noUi-horizontal .noUi-handle:focus {
+  outline: none;
+}
+
+.noUi-connect {
+  background: var(--primary-slider-color);
+}
+.noUi-connect .noUi-tooltip {
+  background-color: var(--primary-slider-color);
+}
+
+[disabled] .noUi-connect {
+  background: var(--primary-slider-color);
+}
+
+[disabled] .noUi-touch-area, [disabled] .noUi-tooltip, [disabled].noUi-target {
+  cursor: wait;
+}
+
+.noUi-touch-area:focus {
+  outline: none;
+}
+
+.noUi-connects {
+  background: #999;
+}
+
+.noUi-horizontal .c-0-color {
+  background-color: var(--tertiary-slider-color);
+}
+.noUi-horizontal .c-1-color {
+  background-color: var(--primary-slider-color);
+}
+.noUi-horizontal .c-2-color {
+  background-color: var(--secondary-slider-color);
+}
+
+.secondary.noUi-horizontal .noUi-base {
+  background-color: var(--secondary-slider-color);
+}
+.secondary.noUi-horizontal .noUi-tooltip {
+  background-color: var(--secondary-slider-color);
+}
+.secondary.noUi-horizontal .noUi-handle {
+  background-color: var(--secondary-slider-color);
+}
+.secondary.noUi-horizontal .noUi-connect {
+  background-color: var(--secondary-slider-color);
+}
+.secondary.noUi-horizontal .noUi-connect .noUi-tooltip {
+  background-color: var(--secondary-slider-color);
+}
+
+.tertiary.noUi-horizontal .noUi-tooltip {
+  background-color: var(--tertiary-slider-color);
+}
+.tertiary.noUi-horizontal .noUi-handle {
+  background-color: var(--tertiary-slider-color);
+}
+.tertiary.noUi-horizontal .noUi-connect {
+  background-color: var(--tertiary-slider-color);
+}
+.tertiary.noUi-horizontal .noUi-connect .noUi-tooltip {
+  background-color: var(--tertiary-slider-color);
+}
+
+.tertiary.noUi-horizontal .c-0-color {
+  background-color: var(--tertiary-slider-color);
+}
+.tertiary.noUi-horizontal .c-1-color {
+  background-color: var(--primary-slider-color);
+}
+.tertiary.noUi-horizontal .c-2-color {
+  background-color: var(--secondary-slider-color);
+}
+
+.disable-handle {
+  cursor: wait;
+}
+.disable-handle .noUi-touch-area {
+  cursor: wait;
+}
+.disable-handle .noUi-tooltip {
+  cursor: wait;
+}
+
+.single-slider-color .noUi-connect {
+  background-color: var(--secondary-slider-color);
+}
+.single-slider-color .noUi-tooltip {
+  background-color: var(--secondary-slider-color);
+}
+.single-slider-color .noUi-horizontal .noUi-handle {
+  background-color: var(--secondary-slider-color);
+}
+.single-slider-color .noUi-touch-area {
+  background-color: var(--secondary-slider-color);
+  border-radius: 12px;
+}

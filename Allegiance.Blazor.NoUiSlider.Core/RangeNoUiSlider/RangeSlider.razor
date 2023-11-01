@@ -1,0 +1,16 @@
+
+<Allegiance.Blazor.NoUiSlider.Core.RangeNoUiSlider.NoUiRangeSlider TValue="double" Configuration="Configs" Disabled="@disabled" @bind-StartValue="rangeValue[0]" @bind-EndValue="rangeValue[1]" StartFirstChanged="@((x) => minFirst = x)" FirstSecChanged="@((x) => valBetween = x)" Class="tertiary" />
+<div class="align-center d-flex gap-4 mb-4">
+    <MudBlazor.MudButton OnClick="Change" Variant="MudBlazor.Variant.Filled" Color="MudBlazor.Color.Primary">Change</MudBlazor.MudButton>
+    <MudBlazor.MudCheckBox @bind-Checked="disabled" Label="Disable Slider" LabelPosition="MudBlazor.LabelPosition.End" Dense="true" />
+</div>
+<div class="w-50">
+    <div class="d-flex gap-4">
+        <MudBlazor.MudNumericField Label="Start of range" T="double" Value="@rangeValue[0]" ValueChanged="@((val) => ChangeSliderValue(0, val))" Class="mb-4" Style="width: 50%" HideSpinButtons="true" Variant="MudBlazor.Variant.Outlined" Margin="MudBlazor.Margin.Dense" />
+        <MudBlazor.MudText Typo="MudBlazor.Typo.body1">Value from start to first handle: @minFirst</MudBlazor.MudText>
+    </div>
+    <div class="d-flex gap-4">
+        <MudBlazor.MudNumericField Label="End of range" T="double" Value="@rangeValue[1]" ValueChanged="@((val) => ChangeSliderValue(1, val))" Class="mb-4" Style="width: 50%" HideSpinButtons="true" Variant="MudBlazor.Variant.Outlined" Margin="MudBlazor.Margin.Dense" />
+        <MudBlazor.MudText Typo="MudBlazor.Typo.body1">Value between handles: @valBetween</MudBlazor.MudText>
+    </div>
+</div>

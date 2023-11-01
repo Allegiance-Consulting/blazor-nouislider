@@ -1,0 +1,174 @@
+@inject IJSRuntime JSRuntime
+@using Allegiance.Blazor.NoUiSlider.Core.Models
+@typeparam TValue
+@implements IDisposable
+
+<div>
+    <div id="@configuration.Id.ToString()" class="@Class"></div>
+</div>
+
+@code {
+    private RangeSliderConfiguration<TValue> configuration;
+    private DotNetObjectReference<NoUiRangeSlider<TValue>> objectReference;
+    private TValue startValue { get; set; }
+    private TValue endValue { get; set; }
+    private TValue startFirst { get; set; }
+    private TValue firstSec { get; set; }
+
+    [Parameter] public EventCallback<TValue> StartValueChanged { get; set; }
+    [Parameter] public EventCallback<TValue> EndValueChanged { get; set; }
+    [Parameter] public EventCallback<TValue> StartFirstChanged { get; set; }
+    [Parameter] public EventCallback<TValue> FirstSecChanged { get; set; }
+    [Parameter] public string Class { get; set; }
+    [Parameter] public string SliderHeader { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+
+    [Parameter]
+    public RangeSliderConfiguration<TValue> Configuration
+    {
+        get
+        {
+            return configuration;
+        }
+        set
+        {
+            if (configuration != null)
+            {
+                configuration = value;
+                JSRuntime.InvokeVoidAsync("updateSlider", configuration);
+                configuration.SetSlider = false;
+            }
+            else
+            {
+                configuration = value;
+            }
+        }
+    }
+
+    [Parameter]
+    public TValue StartValue
+    {
+        get
+        {
+            return startValue;
+        }
+        set
+        {
+            if (Convert.ToDouble(startValue) != Convert.ToDouble(value))
+            {
+                startValue = value;
+                configuration.SetSlider = true;
+                configuration.Start[0] = value;
+                var startFirstCalculation = Convert.ToDouble(startValue) - Convert.ToDouble(configuration.Range.Min);
+                StartFirstChanged.InvokeAsync((TValue)Convert.ChangeType(startFirstCalculation, typeof(TValue)));
+                JSRuntime.InvokeVoidAsync("updateSlider", configuration);
+            }
+        }
+    }
+
+    [Parameter]
+    public TValue EndValue
+    {
+        get
+        {
+            return endValue;
+        }
+        set
+        {
+            if (Convert.ToDouble(endValue) != Convert.ToDouble(value))
+            {
+                endValue = value;
+                configuration.SetSlider = true;
+                configuration.Start[1] = value;
+                var OldRangeMax = Convert.ToDouble(configuration.Range.Max);
+
+                if (configuration.Growth)
+                {
+                    if (Convert.ToDouble(endValue) == Convert.ToDouble(configuration.Range.Max))
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            var Max = Convert.ToDouble(configuration.Range.Max);
+                            var Sum = Max * 10;
+                            configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                        }
+                    }
+                    if (Convert.ToDouble(endValue) > Convert.ToDouble(configuration.Range.Max))
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            while (Convert.ToDouble(endValue) > Convert.ToDouble(configuration.Range.Max))
+                            {
+                                var Max = Convert.ToDouble(configuration.Range.Max);
+                                var Sum = Max * 10;
+                                configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                            }
+                        }
+                    }
+                }
+                if (configuration.PercentageStep != null)
+                {
+                    var Percentage = Convert.ToDouble(configuration.Range.Max) / 100 * Convert.ToDouble(configuration.PercentageStep);
+                    configuration.Step = (TValue)Convert.ChangeType(Percentage, typeof(TValue));
+                    //Setting the step to a percentage of max value
+                    if (OldRangeMax != Convert.ToDouble(configuration.Range.Max))
+                    {
+                        Percentage = Convert.ToDouble(configuration.Range.Max) / 100 * Convert.ToDouble(configuration.PercentageStep);
+                        configuration.Step = (TValue)Convert.ChangeType(Percentage, typeof(TValue));
+                        OldRangeMax = (int)Convert.ChangeType(configuration.Range.Max, typeof(int));
+                    }
+                }
+                JSRuntime.InvokeVoidAsync("updateSlider", configuration);
+                var firstSecCalculation = Convert.ToDouble(endValue) - Convert.ToDouble(startValue);
+                FirstSecChanged.InvokeAsync((TValue)Convert.ChangeType(firstSecCalculation, typeof(TValue)));
+            }
+        }
+    }
+
+    //private Task OnStartFirstChanged(ChangeEventArgs e)
+    //{
+    //    StartFirst = (TValue)e.Value;
+    //    return StartFirstChanged.InvokeAsync(StartFirst);
+    //}
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            configuration.Start = new TValue[] { startValue, endValue };
+            objectReference = DotNetObjectReference.Create(this);
+            await JSRuntime.InvokeVoidAsync("renderSlider", configuration, objectReference);
+        }
+        if (Disabled)
+        {
+            await JSRuntime.InvokeVoidAsync("disableSliderHandle", configuration.Id.ToString());
+        }
+        else if (!Disabled)
+        {
+            await JSRuntime.InvokeVoidAsync("enableSliderHandle", configuration.Id.ToString());
+        }
+    }
+
+    [JSInvokable("sliderValueChanged")]
+    public void SliderValueChanged(TValue newStartValue, TValue newEndValue /*TValue newStartFirst, TValue newFirstSec*/)
+    {
+        if (StartValueChanged.HasDelegate || EndValueChanged.HasDelegate || StartFirstChanged.HasDelegate || FirstSecChanged.HasDelegate)
+        {
+            StartValueChanged.InvokeAsync(newStartValue);
+            EndValueChanged.InvokeAsync(newEndValue);
+            //StartFirstChanged.InvokeAsync(newStartFirst);
+            //FirstSecChanged.InvokeAsync(newFirstSec);
+        }
+    }
+
+    void IDisposable.Dispose()
+    {
+        GC.SuppressFinalize(this);
+
+        if (objectReference != null)
+        {
+            //Now dispose our object reference so our component can be garbage collected
+            objectReference.Dispose();
+        }
+    }
+}

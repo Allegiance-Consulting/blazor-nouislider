@@ -1,0 +1,310 @@
+@inject IJSRuntime JSRuntime
+@using Allegiance.Blazor.NoUiSlider.Core.Models
+@using System.Globalization
+@typeparam TValue
+@implements IDisposable
+
+<div id="@configuration.Id.ToString()" class="@Class"></div>
+
+@code {
+    private NoUiSliderConfiguration<TValue> configuration;
+    private TValue startValue { get; set; }
+    private DotNetObjectReference<NoUiSlider<TValue>> objectReference;
+
+    [Parameter]
+    public string Class { get; set; }
+    [Parameter]
+    public string SliderHeader { get; set; }
+    [Parameter]
+    public EventCallback<TValue> StartValueChanged { get; set; }
+    [Parameter]
+    public Func<Task> FireEndEventChanged { get; set; }
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public NoUiSliderConfiguration<TValue> Configuration
+    {
+        get
+        {
+            return configuration;
+        }
+        set
+        {
+            if (configuration != null)
+            {
+                configuration = value;
+                JSRuntime.InvokeVoidAsync("updateSlider", configuration);
+                configuration.SetSlider = false;
+            }
+            else
+            {
+                configuration = value;
+            }
+        }
+    }
+    [Parameter]
+    public TValue StartValue
+    {
+        get
+        {
+            return startValue;
+        }
+        set
+        {
+            var OldStart = Convert.ToDouble(startValue);
+            if (Convert.ToDouble(startValue) != Convert.ToDouble(value))
+            {
+                configuration.Start = startValue = value;
+                configuration.SetSlider = true;
+
+                //Temp variables for setting step to percentage of max range
+                var OldRangeMax = (double)Convert.ChangeType(configuration.Range.Max, typeof(double));
+
+
+                if (configuration.Growth)
+                {
+                    //Increase the max range when the slider hits the end of the slider base
+                    if (Convert.ToDouble(startValue) == Convert.ToDouble(configuration.Range.Max))
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
+                            configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                        }
+                    }
+                    if (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            while (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
+                            {
+                                var Sum = Convert.ToDouble(configuration.Range.Max) * 10;
+                                configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                            }
+                        }
+                    }
+                }
+
+                //Increase slider range by value when reaching max value
+                if (configuration.IncreaseRange > 0)
+                {
+                    //Increase the max range when the slider hits the end of the slider base
+                    if (Convert.ToDouble(startValue) == Convert.ToDouble(configuration.Range.Max))
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            var Sum = Convert.ToDouble(configuration.Range.Max) + configuration.IncreaseRange;
+                            configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                        }
+                    }
+                    if (Convert.ToDouble(value) > Convert.ToDouble(configuration.Range.Max))
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            while (Convert.ToDouble(value) >= Convert.ToDouble(configuration.Range.Max))
+                            {
+                                var Sum = Convert.ToDouble(configuration.Range.Max) + configuration.IncreaseRange;
+                                configuration.Range.Max = (TValue)Convert.ChangeType(Sum, typeof(TValue));
+                            }
+                        }
+                    }
+
+                    //Decrease max range when slider hits range minimum
+                    //if (Convert.ToDouble(startValue) == 0 && Convert.ToDouble(configuration.Range.Max) > 100)
+                    //{
+                    //    var RangeTemp = Convert.ToDouble(configuration.Range.Max) / 10;
+                    //    configuration.Range.Max = (TValue)Convert.ChangeType(RangeTemp, typeof(TValue));
+                    //    var StartTemp = Convert.ToDouble(configuration.Range.Max) * 0.4;
+                    //    startValue = (TValue)Convert.ChangeType(StartTemp, typeof(TValue));
+                    //    if (StartValueChanged.HasDelegate)
+                    //    {
+                    //        StartValueChanged.InvokeAsync(startValue);
+                    //    }
+                    //    configuration.Start = (TValue)Convert.ChangeType(StartTemp, typeof(TValue));
+                    //}
+                }
+
+                //Range limit implementation
+                if (configuration.RangeLimit > 0)
+                {
+                    if (Convert.ToDouble(configuration.Range.Max) >= configuration.RangeLimit)
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            var maxLimit = configuration.RangeLimit;
+                            configuration.Range.Max = (TValue)Convert.ChangeType(maxLimit, typeof(TValue));
+                        }
+                    }
+                    if (Convert.ToDouble(value) >= configuration.RangeLimit)
+                    {
+                        if (typeof(TValue) == typeof(double))
+                        {
+                            value = (TValue)Convert.ChangeType(configuration.RangeLimit, typeof(TValue));
+                        }
+                    }
+                }
+
+                if (configuration.EnableStep)
+                {
+                    if (configuration.ReturnStep > 0)
+                    {
+                        switch (Convert.ToDouble(configuration.Range.Max))
+                        {
+                            case 1000:
+                                configuration.ReturnStep = 10;
+                                break;
+                            case 10000:
+                                configuration.ReturnStep = 100;
+                                break;
+                            case 100000:
+                                configuration.ReturnStep = 1000;
+                                break;
+                            case 1000000:
+                                configuration.ReturnStep = 10000;
+                                break;
+                            case 10000000:
+                                configuration.ReturnStep = 100000;
+                                break;
+                            case 100000000:
+                                configuration.ReturnStep = 1000000;
+                                break;
+                            case 1000000000:
+                                configuration.ReturnStep = 10000000;
+                                break;
+                            case 10000000000:
+                                configuration.ReturnStep = 100000000;
+                                break;
+                            default:
+                                configuration.ReturnStep = 1;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (Convert.ToDouble(configuration.Range.Max))
+                        {
+                            case 1000:
+                                configuration.Step = (TValue)Convert.ChangeType(10, typeof(TValue));
+                                break;
+                            case 10000:
+                                configuration.Step = (TValue)Convert.ChangeType(100, typeof(TValue));
+                                break;
+                            case 100000:
+                                configuration.Step = (TValue)Convert.ChangeType(1000, typeof(TValue));
+                                break;
+                            case 1000000:
+                                configuration.Step = (TValue)Convert.ChangeType(10000, typeof(TValue));
+                                break;
+                            case 10000000:
+                                configuration.Step = (TValue)Convert.ChangeType(100000, typeof(TValue));
+                                break;
+                            case 100000000:
+                                configuration.Step = (TValue)Convert.ChangeType(1000000, typeof(TValue));
+                                break;
+                            case 1000000000:
+                                configuration.Step = (TValue)Convert.ChangeType(10000000, typeof(TValue));
+                                break;
+                            case 10000000000:
+                                configuration.Step = (TValue)Convert.ChangeType(100000000, typeof(TValue));
+                                break;
+                            default:
+                                configuration.Step = (TValue)Convert.ChangeType(1, typeof(TValue));
+                                break;
+                        }
+                    }
+                }
+
+                if (configuration.PercentageStep > 0)
+                {
+                    var Percentage = Convert.ToDouble(configuration.Range.Max) / 100 * Convert.ToDouble(configuration.PercentageStep);
+                    configuration.Step = (TValue)Convert.ChangeType(Percentage, typeof(TValue));
+                    //Setting the step to a percentage of max value
+                    if (OldRangeMax != Convert.ToDouble(configuration.Range.Max))
+                    {
+                        Percentage = Convert.ToDouble(configuration.Range.Max) / 100 * Convert.ToDouble(configuration.PercentageStep);
+                        configuration.Step = (TValue)Convert.ChangeType(Percentage, typeof(TValue));
+                        OldRangeMax = (double)Convert.ChangeType(configuration.Range.Max, typeof(double));
+                    }
+                }
+                //if (Convert.ToDouble(startValue) % Convert.ToDouble(configuration.Step) != 0)
+                //{
+                //    configuration.ReturnStep = Convert.ToDouble(configuration.Step);
+                //    Console.WriteLine($" I am going in {configuration.ReturnStep}");
+                //    configuration.Step = (TValue)Convert.ChangeType(1, typeof(TValue));
+                //    //configuration.Step = startValue;
+                //}
+                //if (configuration.ReturnStep > 0)
+                //{
+                //configuration.Step = (TValue)Convert.ChangeType(configuration.ReturnStep, typeof(TValue));
+                //}
+            }
+            JSRuntime.InvokeVoidAsync("updateSlider", configuration);
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            configuration.Start = startValue;
+            objectReference = DotNetObjectReference.Create(this);
+            //InputFormat will change the number type of your tooltip
+            if (configuration.InputFormat == "currency")
+            {
+                configuration.TooltipsFormat = new TooltipsFormat
+                {
+                    Prefix = "R ",
+                    Thousand = " ",
+                    Decimals = 0,
+                    Suffix = ""
+                };
+            }
+            else if (configuration.InputFormat == "percentage")
+            {
+                configuration.TooltipsFormat = new TooltipsFormat
+                {
+                    Prefix = "",
+                    Suffix = "%",
+                    Decimals = 0
+                };
+            }
+            await JSRuntime.InvokeVoidAsync("renderSlider", configuration, objectReference);
+            //await JSRuntime.InvokeVoidAsync("toggle");
+        }
+        if (Disabled)
+        {
+            await JSRuntime.InvokeVoidAsync("disableSliderHandle", configuration.Id.ToString());
+        }
+        else if (!Disabled)
+        {
+            await JSRuntime.InvokeVoidAsync("enableSliderHandle", configuration.Id.ToString());
+        }
+    }
+
+    [JSInvokable("sliderValueChanged")]
+    public void SliderValueChanged(TValue newValue)
+    {
+        if (StartValueChanged.HasDelegate)
+        {
+            StartValueChanged.InvokeAsync(newValue);
+        }
+    }
+
+    [JSInvokable("fireEndEvent")]
+    public void FireEndEvent()
+    {
+        FireEndEventChanged.Invoke();
+    }
+
+    void IDisposable.Dispose()
+    {
+        GC.SuppressFinalize(this);
+
+        if (objectReference != null)
+        {
+            //Now dispose our object reference so our component can be garbage collected
+            objectReference.Dispose();
+        }
+    }
+}
