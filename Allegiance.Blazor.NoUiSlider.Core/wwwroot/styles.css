@@ -96,6 +96,32 @@
   background-color: var(--tertiary-slider-color);
 }
 
+.quaternary.noUi-horizontal .noUi-tooltip {
+  background-color: var(--quaternary-slider-color);
+}
+.quaternary.noUi-horizontal .noUi-handle {
+  background-color: var(--quaternary-slider-color);
+}
+.quaternary.noUi-horizontal .noUi-connect {
+  background-color: var(--quaternary-slider-color);
+}
+.quaternary.noUi-horizontal .noUi-connect .noUi-tooltip {
+  background-color: var(--quaternary-slider-color);
+}
+
+.quinary.noUi-horizontal .noUi-tooltip {
+  background-color: var(--quinary-slider-color);
+}
+.quinary.noUi-horizontal .noUi-handle {
+  background-color: var(--quinary-slider-color);
+}
+.quinary.noUi-horizontal .noUi-connect {
+  background-color: var(--quinary-slider-color);
+}
+.quinary.noUi-horizontal .noUi-connect .noUi-tooltip {
+  background-color: var(--quinary-slider-color);
+}
+
 .tertiary.noUi-horizontal .c-0-color {
   background-color: var(--tertiary-slider-color);
 }

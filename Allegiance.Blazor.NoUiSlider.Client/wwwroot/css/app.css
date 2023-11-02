@@ -4,6 +4,8 @@
     --primary-slider-color: var(--mud-palette-primary);
     --secondary-slider-color: var(--mud-palette-secondary);
     --tertiary-slider-color: var(--mud-palette-tertiary);
+    --quaternary-slider-color: black;
+    --quinary-slider-color: pink;
 }
 
 html, body {
