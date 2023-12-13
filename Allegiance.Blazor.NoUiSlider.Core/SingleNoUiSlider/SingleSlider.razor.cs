@@ -1,4 +1,4 @@
-﻿using Allegiance.Blazor.NoUiSlider.Core.Models;
+using Allegiance.Blazor.NoUiSlider.Core.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
@@ -13,13 +13,26 @@ namespace Allegiance.Blazor.NoUiSlider.Core.SingleNoUiSlider
 {
     public partial class SingleSlider : ComponentBase
     {
-        private double myValue = 50;
-        private double myValue2 = 50;
+        [Inject] IJSRuntime JSRuntime { get; set; }
+
+        private double myValue;
+        private double myValue2;
         private static Guid singleSliderId = Guid.NewGuid();
         private bool disabled = false;
         private bool setSlidetAfterSlide;
         //private EventCallback<bool> setSlidetAfterSlideChanged { get; set; }
-        [Inject] IJSRuntime JSRuntime{get; set;}
+
+        public double MyValue2
+        {
+            get => myValue2;
+            set
+            {
+                if (value != myValue2)
+                {
+                    myValue2 = value;
+                }
+            }
+        }
 
         public NoUiSliderConfiguration<double> Config = new NoUiSliderConfiguration<double>
         {

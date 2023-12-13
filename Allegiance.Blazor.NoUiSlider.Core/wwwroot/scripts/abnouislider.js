@@ -77,7 +77,7 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
             }
         }
         if (this.options.changeColorBiggerThen > 0) {
-            var sliderValue = Number(handleOfSlider.replace("R", "").replace("%", "").replace(/\s/g, ""));
+            var sliderValue = Number(handleOfSlider.replace(this.options.tooltipsFormat.prefix, "").replace(this.options.tooltipsFormat.suffix, "").replace(/\s/g, ""));
             if (sliderValue !== null && sliderValue !== undefined) {
                 if (sliderValue >= this.options.changeColorBiggerThen) {
                     singleSliderTooltipColor.setAttribute('style', 'background-color: ' + this.options.color);
