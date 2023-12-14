@@ -102,7 +102,14 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
     slider.noUiSlider.on(configuration.event, function (val) {
         const numberFormatter = wNumb(configuration.tooltipsFormat);
         if (val.length === 1) {
-            dotNetObjectReference.invokeMethodAsync("sliderValueChanged", numberFormatter.from(val[0]));
+            var newValue = "";
+            if (this.options.tooltipsFormat.suffix.includes("/")) {
+                newValue = val[0].replace(this.options.tooltipsFormat.prefix, "").replace(/\/.*/, "").replace(/\s/g, "")
+            }
+            else {
+                newValue = val[0].replace(this.options.tooltipsFormat.prefix, "").replace(this.options.tooltipsFormat.suffix, "").replace(/\s/g, "")
+            }
+            dotNetObjectReference.invokeMethodAsync("sliderValueChanged", numberFormatter.from(newValue));
         }
         else {
             dotNetObjectReference.invokeMethodAsync("sliderValueChanged", numberFormatter.from(val[0]), numberFormatter.from(val[1]));
@@ -122,7 +129,7 @@ window.updateSlider = function (configuration) {
             }
             configuration.format = wNumb(configuration.tooltipsFormat);
             if (!configuration.setSlider) {
-                configuration.start = value.slider.noUiSlider.get();
+                configuration.start = value.slider.noUiSlider.get().replace(configuration.tooltipsFormat.prefix, "").replace(value.configuration.tooltipsFormat.suffix, "");
             }
             else if (configuration.event === "set" || configuration.event === "end" || configuration.event === "change") {
                 value.slider.noUiSlider.set(configuration.start);

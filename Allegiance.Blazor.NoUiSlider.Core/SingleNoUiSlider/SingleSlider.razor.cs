@@ -1,4 +1,4 @@
-using Allegiance.Blazor.NoUiSlider.Core.Models;
+﻿using Allegiance.Blazor.NoUiSlider.Core.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
@@ -22,6 +22,19 @@ namespace Allegiance.Blazor.NoUiSlider.Core.SingleNoUiSlider
         private bool setSlidetAfterSlide;
         //private EventCallback<bool> setSlidetAfterSlideChanged { get; set; }
 
+        public double MyValue
+        {
+            get => myValue;
+            set
+            {
+                if (value != myValue)
+                {
+                    myValue = value;
+                    Config.TooltipsFormat.Suffix = " / " + (myValue + 10).ToString();
+                }
+            }
+        }
+
         public double MyValue2
         {
             get => myValue2;
@@ -40,39 +53,43 @@ namespace Allegiance.Blazor.NoUiSlider.Core.SingleNoUiSlider
             Range = new Models.Range<double>
             {
                 Min = 0,
-                Max = 10000000
+                Max = 100000
             },
             //To have the step linked to a percentage of max value
             //PercentageStep = 10,
-            InputFormat = "currency",
             Animate = true,
             IncreaseRange = 500,
             Growth = true,
             //Id = singleSliderId,
-            EnableStep = true,
             //ExactInput = true,
             Step = 1,
             //ReturnStep = 100,
-            ChangeColorBiggerThen = 5000000,
+            ChangeColorBiggerThen = 50000,
             SingleSliderConnectClass = "single-slider-color",
+            TooltipsFormat = new TooltipsFormat()
+            {
+                Prefix = "R ",
+                Thousand = " ",
+                Suffix = " / 30"
+            }
         };
 
         public NoUiSliderConfiguration<double> Config2 = new NoUiSliderConfiguration<double>
-        {
+        { 
             Range = new Models.Range<double>
             {
                 Min = 0,
                 Max = 100
             },
             InputFormat = "percentage",
-            ReturnStep = 5,
-            ChangeColorBiggerThen = 50
+            ReturnStep = 5
         };
 
         public void Change()
         {
             // Change slider with Config.Start
             myValue = Config.Start = 50;
+            Config.TooltipsFormat.Suffix = " / 50";
             // Change slider with bound value
             myValue2 = 100;
             Config.Range.Max = 300;
