@@ -49,7 +49,7 @@ namespace Allegiance.Blazor.NoUiSlider.Core.SingleNoUiSlider
 
         public NoUiSliderConfiguration<double> Config = new NoUiSliderConfiguration<double>
         {
-            Start = 50,
+            Start = 0,
             Range = new Models.Range<double>
             {
                 Min = 0,
