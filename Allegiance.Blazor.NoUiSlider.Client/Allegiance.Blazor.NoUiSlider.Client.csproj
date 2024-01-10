@@ -7,7 +7,7 @@
     <Company>Allegiance Consulting</Company>
     <Authors>Allegiance Consulting</Authors>
     <Product>Blazor NoUiSlider</Product>
-    <Version>2.2</Version>
+    <Version>2.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
