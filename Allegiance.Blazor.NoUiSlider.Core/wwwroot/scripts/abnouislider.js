@@ -134,9 +134,6 @@ window.updateSlider = function (configuration) {
             else if (configuration.event === "set" || configuration.event === "end" || configuration.event === "change") {
                 value.slider.noUiSlider.set(configuration.start);
             }
-            if (value.slider.noUiSlider.options.tooltipsFormat !== configuration.tooltipsFormat) {
-                value.slider.noUiSlider.options.tooltipsFormat = configuration.tooltipsFormat;
-            }
             value.slider.noUiSlider.updateOptions(configuration);
             value.configuration = configuration; configuration.eventconfiguration.event
             //value.configuration.step = oldStep;

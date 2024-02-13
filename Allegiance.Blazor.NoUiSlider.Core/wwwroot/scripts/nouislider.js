@@ -2539,7 +2539,9 @@
                 "step",
                 "format",
                 "pips",
-                "tooltips"
+                "tooltips",
+                "tooltipsFormat",
+                "changeColorBiggerThen"
             ];
 
             // Only change options that we're actually passed to update.
