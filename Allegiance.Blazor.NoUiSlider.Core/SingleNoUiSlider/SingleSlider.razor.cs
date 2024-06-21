@@ -71,7 +71,8 @@ namespace Allegiance.Blazor.NoUiSlider.Core.SingleNoUiSlider
                 Prefix = "R ",
                 Thousand = " ",
                 Suffix = " / 30"
-            }
+            },
+            CustomColor = "red",
         };
 
         public NoUiSliderConfiguration<double> Config2 = new NoUiSliderConfiguration<double>

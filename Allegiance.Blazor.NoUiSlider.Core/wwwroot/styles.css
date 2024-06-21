@@ -1,4 +1,8 @@
-﻿.noUi-tooltip {
+﻿:root {
+  --custom-slider-color: #207dce;
+}
+
+.noUi-tooltip {
   top: auto !important;
   left: -40px;
   min-width: 100px;
@@ -159,6 +163,32 @@
 }
 .quinary.noUi-horizontal .noUi-connect .noUi-tooltip {
   background-color: var(--quinary-slider-color);
+}
+
+.custom-slider-color.noUi-horizontal .single-slider-color .noUi-connect {
+  background-color: var(--custom-slider-color);
+}
+.custom-slider-color.noUi-horizontal .single-slider-color .noUi-tooltip {
+  background-color: var(--custom-slider-color);
+}
+.custom-slider-color.noUi-horizontal .single-slider-color .noUi-horizontal .noUi-handle {
+  background-color: var(--custom-slider-color);
+}
+.custom-slider-color.noUi-horizontal .single-slider-color .noUi-touch-area {
+  background-color: var(--custom-slider-color);
+  border-radius: 12px;
+}
+.custom-slider-color.noUi-horizontal .noUi-tooltip {
+  background-color: var(--custom-slider-color);
+}
+.custom-slider-color.noUi-horizontal .noUi-handle {
+  background-color: var(--custom-slider-color);
+}
+.custom-slider-color.noUi-horizontal .noUi-connect {
+  background-color: var(--custom-slider-color);
+}
+.custom-slider-color.noUi-horizontal .noUi-connect .noUi-tooltip {
+  background-color: var(--custom-slider-color);
 }
 
 .disable-handle {

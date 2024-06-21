@@ -115,6 +115,12 @@ window.renderSlider = function (configuration, dotNetObjectReference) {
             dotNetObjectReference.invokeMethodAsync("sliderValueChanged", numberFormatter.from(val[0]), numberFormatter.from(val[1]));
         }
     });
+
+    if (configuration.customColor !== undefined && configuration.customColor !== null && configuration.customColor !== "") {
+        document.documentElement.style.setProperty('--custom-slider-color', configuration.customColor);
+        slider.classList.add('custom-slider-color');
+    }
+
     window.sliders.push({ slider, configuration, dotNetObjectReference });
 }
 
