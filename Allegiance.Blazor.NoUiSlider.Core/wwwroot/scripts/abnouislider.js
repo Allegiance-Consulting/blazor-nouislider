@@ -141,7 +141,7 @@ window.updateSlider = function (configuration) {
                 value.slider.noUiSlider.set(configuration.start);
             }
             value.slider.noUiSlider.updateOptions(configuration);
-            value.configuration = configuration; configuration.eventconfiguration.event
+            value.configuration = configuration;
             //value.configuration.step = oldStep;
         }
     });
